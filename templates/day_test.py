@@ -1,5 +1,5 @@
 import pytest
-from day01 import part1, part2
+from day import part1, part2
 
 _test_part1 = (
 )
