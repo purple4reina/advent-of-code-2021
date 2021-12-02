@@ -6,7 +6,7 @@ def part2(inputs):
 
 def read_inputs():
     with open('input.txt') as f:
-        return f.read()
+        return f.read().strip()
 
 def process(raw):
     return list(map(int, raw.split()))
