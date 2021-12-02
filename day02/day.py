@@ -10,7 +10,16 @@ def part1(inputs):
     return loc[0] * loc[1]
 
 def part2(inputs):
-    pass
+    loc, aim = [0, 0], 0
+    for direction, speed in inputs:
+        if direction == 'forward':
+            loc[0] += speed
+            loc[1] += speed * aim
+        elif direction == 'down':
+            aim += speed
+        else:
+            aim -= speed
+    return loc[0] * loc[1]
 
 def read_inputs():
     with open('input.txt') as f:
@@ -27,3 +36,4 @@ def process(raw):
 if __name__ == '__main__':
     inputs = process(read_inputs())
     print(part1(inputs))
+    print(part2(inputs))
