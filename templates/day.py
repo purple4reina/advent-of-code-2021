@@ -14,3 +14,4 @@ def process(raw):
 if __name__ == '__main__':
     inputs = process(read_inputs())
     print(part1(inputs))
+    print(part2(inputs))
