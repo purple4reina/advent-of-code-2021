@@ -1,16 +1,18 @@
 import pytest
-from day import part1, part2
+from day import part1, part2, process
 
-_test_part1 = (
-)
+_test_part1_input = """
+"""
+_test_part1_expect = None
 
-@pytest.mark.parametrize('n,expect', _test_part1)
-def test_part1(n, expect):
-    assert expect == part1(n)
+def test_part1():
+    inputs = process(_test_part1_input)
+    assert _test_part1_expect == part1(inputs)
 
-_test_part2 = (
-)
+_test_part2_input = """
+"""
+_test_part2_expect = None
 
-@pytest.mark.parametrize('n,expect', _test_part2)
-def test_part2(n, expect):
-    assert expect == part2(n)
+def test_part2():
+    inputs = process(_test_part2_input)
+    assert _test_part2_expect == part2(inputs)

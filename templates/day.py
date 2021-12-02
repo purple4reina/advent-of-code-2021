@@ -6,8 +6,11 @@ def part2(inputs):
 
 def read_inputs():
     with open('input.txt') as f:
-        return list(map(int, f.read().split()))
+        return f.read()
+
+def process(raw):
+    return list(map(int, raw.split()))
 
 if __name__ == '__main__':
-    inputs = read_inputs()
+    inputs = process(read_inputs())
     print(part1(inputs))
