@@ -17,25 +17,20 @@ def part1(inputs):
     return gamma * epsilon
 
 def part2(inputs):
-    nums, leng = inputs
 
     def sieve(greatest):
-        matrix, new_matrix = [
-                [
-                    (n >> (leng-i-1)) & 1
-                    for i in range(leng)
-                ] for n in nums
-        ], []
+        matrix, new_matrix = nums, []
         for i in range(leng):
-            most = sum(m[i] for m in matrix) >= len(matrix) / 2
+            dig = leng - i - 1
+            most = sum(m>>dig & 1 for m in matrix) >= len(matrix) / 2
             for m in matrix:
-                if (m[i] == most) is greatest:
+                if (m>>dig & 1 == most) is greatest:
                     new_matrix.append(m)
             matrix, new_matrix = new_matrix, []
             if len(matrix) == 1:
-                return int(''.join(map(str, matrix[0])), 2)
-                break
+                return matrix[0]
 
+    nums, leng = inputs
     o2 = sieve(True)
     co2 = sieve(False)
     return o2 * co2
