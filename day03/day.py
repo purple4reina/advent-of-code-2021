@@ -18,38 +18,26 @@ def part1(inputs):
 
 def part2(inputs):
     nums, leng = inputs
-    matrix, new_matrix = [
-            [
-                int(bin(n)[2:].rjust(leng, '0')[i])
-                for i in range(leng)
-            ] for n in nums
-    ], []
-    for i in range(leng):
-        most = sum(m[i] for m in matrix) >= len(matrix) / 2
-        for m in matrix:
-            if m[i] == most:
-                new_matrix.append(m)
-        matrix, new_matrix = new_matrix, []
-        if len(matrix) == 1:
-            o2 = int(''.join(map(str, matrix[0])), 2)
-            break
 
-    matrix, new_matrix = [
-            [
-                int(bin(n)[2:].rjust(leng, '0')[i])
-                for i in range(leng)
-            ] for n in nums
-    ], []
-    for i in range(leng):
-        most = sum(m[i] for m in matrix) >= len(matrix) / 2
-        for m in matrix:
-            if m[i] != most:
-                new_matrix.append(m)
-        matrix, new_matrix = new_matrix, []
-        if len(matrix) == 1:
-            co2 = int(''.join(map(str, matrix[0])), 2)
-            break
+    def sieve(greatest):
+        matrix, new_matrix = [
+                [
+                    int(bin(n)[2:].rjust(leng, '0')[i])
+                    for i in range(leng)
+                ] for n in nums
+        ], []
+        for i in range(leng):
+            most = sum(m[i] for m in matrix) >= len(matrix) / 2
+            for m in matrix:
+                if (m[i] == most) is greatest:
+                    new_matrix.append(m)
+            matrix, new_matrix = new_matrix, []
+            if len(matrix) == 1:
+                return int(''.join(map(str, matrix[0])), 2)
+                break
 
+    o2 = sieve(True)
+    co2 = sieve(False)
     return o2 * co2
 
 def read_inputs():
