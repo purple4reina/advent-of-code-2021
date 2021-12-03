@@ -22,7 +22,7 @@ def part2(inputs):
     def sieve(greatest):
         matrix, new_matrix = [
                 [
-                    int(bin(n)[2:].rjust(leng, '0')[i])
+                    (n >> (leng-i-1)) & 1
                     for i in range(leng)
                 ] for n in nums
         ], []
