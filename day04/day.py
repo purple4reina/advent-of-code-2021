@@ -15,10 +15,8 @@ def part2(inputs):
     for num in nums:
         boards[boards==num] = 0
         for board in boards:
-            if (board.sum(axis=0) == 0).any() or \
-                    (board.sum(axis=1) == 0).any():
-                pass
-            else:
+            if (board.sum(axis=0) != 0).all() and \
+                    (board.sum(axis=1) != 0).all():
                 new_boards.append(board)
         if not len(new_boards):
             return board.sum() * num
