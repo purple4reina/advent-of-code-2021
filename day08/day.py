@@ -13,21 +13,8 @@ def part2(puzzle_input):
         0b1101011: 5, 0b1111011: 6, 0b0100101: 7, 0b1111111: 8, 0b1101111: 9,
     }
 
-    def assign(digit, outs, ins):
-        for d in 'abcdefg':
-            if d in digit:
-                for i in outs:
-                    given_to_expected[d][i] = 0
-            else:
-                for i in ins:
-                    given_to_expected[d][i] = 0
-
-    def translate(digit):
-        num = 0
-        for d in digit:
-            for i, j in enumerate(given_to_expected[d]):
-                num += j << i
-        return _translate[num]
+    def digits_to_assign():
+        return any(sum(v) > 1 for v in given_to_expected.values())
 
     def assign_digit(digit):
         length = len(digit)
@@ -42,6 +29,15 @@ def part2(puzzle_input):
         elif length == 6:
             assign(digit, [], (0, 1, 5, 6))
 
+    def assign(digit, outs, ins):
+        for d in 'abcdefg':
+            if d in digit:
+                for i in outs:
+                    given_to_expected[d][i] = 0
+            else:
+                for i in ins:
+                    given_to_expected[d][i] = 0
+
     def clean_uniques():
         for key, values in given_to_expected.items():
             if sum(values) > 1:
@@ -52,8 +48,12 @@ def part2(puzzle_input):
                     continue
                 other_values[d] = 0
 
-    def digits_to_assign():
-        return any(sum(v) > 1 for v in given_to_expected.values())
+    def translate(digit):
+        num = 0
+        for d in digit:
+            for i, j in enumerate(given_to_expected[d]):
+                num += j << i
+        return _translate[num]
 
     total = 0
     for inputs, outputs in puzzle_input:
