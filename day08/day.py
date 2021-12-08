@@ -1,14 +1,3 @@
-# 0: abcefg
-# 1: cf     <-
-# 2: acdeg
-# 3: acdfg
-# 4: bcdf   <-
-# 5: abdfg
-# 6: abdefg
-# 7: acf        <-
-# 8: abcdefg   <-
-# 9: abcdfg
-
 def part1(inputs):
     count = 0
     for _, outputs in inputs:
