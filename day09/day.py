@@ -5,13 +5,13 @@ def part1(matrix):
 
     def lowest(i, j):
         height = matrix[i][j]
-        if i > 0 and matrix[i-1][j] < height:
+        if i > 0 and matrix[i-1][j] <= height:
             return False
-        if i < h - 1 and matrix[i+1][j] < height:
+        if i < h - 1 and matrix[i+1][j] <= height:
             return False
-        if j > 0 and matrix[i][j-1] < height:
+        if j > 0 and matrix[i][j-1] <= height:
             return False
-        if j < w - 1 and matrix[i][j+1] < height:
+        if j < w - 1 and matrix[i][j+1] <= height:
             return False
         return True
 
