@@ -13,38 +13,24 @@ def part1(matrix):
     h = len(matrix)
     w = len(matrix[0])
 
-    @memoize
-    def traverse(i, j):
+    def lowest(i, j):
         height = matrix[i][j]
-        location = (i, j)
-
         if i > 0 and matrix[i-1][j] < height:
-            height = matrix[i-1][j]
-            location = (i-1, j)
-
+            return False
         if i < h - 1 and matrix[i+1][j] < height:
-            height = matrix[i+1][j]
-            location = (i+1, j)
-
+            return False
         if j > 0 and matrix[i][j-1] < height:
-            height = matrix[i][j-1]
-            location = (i, j-1)
-
+            return False
         if j < w - 1 and matrix[i][j+1] < height:
-            height = matrix[i][j+1]
-            location = (i, j+1)
+            return False
+        return True
 
-        if location != (i, j):
-            return traverse(*location)
-        return location
-
-    minima = {}
+    total = 0
     for i in range(len(matrix)):
         for j in range(len(matrix[i])):
-            location = traverse(i, j)
-            minima[location] = True
-
-    return sum(matrix[i][j] for i, j in minima) + len(minima)
+            if lowest(i, j):
+                total += 1 + matrix[i][j]
+    return total
 
 def part2(inputs):
     pass
