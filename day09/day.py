@@ -30,7 +30,6 @@ def part2(matrix):
     def record_basin(i, j):
         if matrix[i][j] == 9:
             return
-        location, last_location = (-1, -1), (i, j)
         visited = {}
         while True:
             height = matrix[i][j]
@@ -64,12 +63,8 @@ def part2(matrix):
         for j in range(w):
             record_basin(i, j)
 
-    concat = []
-    for row in basin:
-        concat += row
-    concat.sort()
-
-    return concat[-1] * concat[-2] * concat[-3]
+    a, b, c = sorted([c for row in basin for c in row])[-3:]
+    return a * b * c
 
 def read_inputs():
     with open('input.txt') as f:
