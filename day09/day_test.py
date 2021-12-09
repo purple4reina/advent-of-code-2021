@@ -9,7 +9,7 @@ _test_input = """
 9899965678
 """.strip()
 _test_part1_expect = 15
-_test_part2_expect = None
+_test_part2_expect = 1134
 
 def test_part1():
     inputs = process(_test_input)
