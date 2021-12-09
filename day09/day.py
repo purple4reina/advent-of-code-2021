@@ -1,13 +1,3 @@
-def memoize(fn):
-    _cache = {}
-    def wrap(*args):
-        if args in _cache:
-            return _cache[args]
-        ret = fn(*args)
-        _cache[args] = ret
-        return ret
-    return wrap
-
 def part1(matrix):
 
     h = len(matrix)
@@ -26,8 +16,8 @@ def part1(matrix):
         return True
 
     total = 0
-    for i in range(len(matrix)):
-        for j in range(len(matrix[i])):
+    for i in range(h):
+        for j in range(w):
             if lowest(i, j):
                 total += 1 + matrix[i][j]
     return total
