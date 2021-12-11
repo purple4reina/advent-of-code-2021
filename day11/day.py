@@ -1,4 +1,6 @@
+import os
 import numpy as np
+import time
 
 def part1(matrix):
 
@@ -84,7 +86,33 @@ def part2(matrix):
         for k, l in adjacency[i][j]:
             matrix[k,l] += 1
 
+    esc = '\033[0m'
+    color = {
+        1: '\033[48;2;0;0;0m',
+        2: '\033[48;2;25;0;51m',
+        3: '\033[48;2;51;0;102m',
+        4: '\033[48;2;76;0;153m',
+        5: '\033[48;2;102;0;204m',
+        6: '\033[48;2;127;0;255m',
+        7: '\033[48;2;153;51;255m',
+        8: '\033[48;2;178;102;255m',
+        9: '\033[48;2;204;153;255m',
+        0: '\033[48;2;229;204;255m',
+    }
+    def draw(step=None):
+        os.system('clear')
+        for row in matrix:
+            for octo in row:
+                print(color[octo], end='')
+                print('  ', end='')
+                print(esc, end='')
+            print()
+        if step:
+            print(steps)
+        time.sleep(0.1)
+
     steps = 0
+    draw()
     while True:
         steps += 1
         prev = matrix > 9
@@ -97,6 +125,7 @@ def part2(matrix):
                         increase_neighbors(matrix, i, j)
             prev, now = now, matrix > 9
         matrix[now] = 0
+        draw(step=steps)
         if (matrix == 0).all():
             return steps
 
