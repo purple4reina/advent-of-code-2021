@@ -90,7 +90,6 @@ def part2(matrix):
         prev = matrix > 9
         matrix += 1
         now = matrix > 9
-        octos = {}
         while (prev != now).any():
             for i in range(height):
                 for j in range(width):
