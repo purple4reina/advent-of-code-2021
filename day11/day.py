@@ -99,7 +99,7 @@ def part2(matrix):
         9: '\033[48;2;204;153;255m',
         0: '\033[48;2;229;204;255m',
     }
-    def draw(step=None):
+    def draw():
         os.system('clear')
         for row in matrix:
             for octo in row:
@@ -107,9 +107,8 @@ def part2(matrix):
                 print('  ', end='')
                 print(esc, end='')
             print()
-        if step:
-            print(steps)
-        time.sleep(0.1)
+        print(steps)
+        time.sleep(0.01)
 
     steps = 0
     draw()
@@ -125,7 +124,7 @@ def part2(matrix):
                         increase_neighbors(matrix, i, j)
             prev, now = now, matrix > 9
         matrix[now] = 0
-        draw(step=steps)
+        draw()
         if (matrix == 0).all():
             return steps
 
@@ -144,5 +143,5 @@ def process(raw):
 
 if __name__ == '__main__':
     inputs = process(read_inputs())
-    print(part1(inputs))
-    print(part2(inputs))
+    print(part1(inputs.copy()))
+    print(part2(inputs.copy()))
