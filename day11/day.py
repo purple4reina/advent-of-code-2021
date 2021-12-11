@@ -96,7 +96,7 @@ def part2(matrix):
                     if now[i,j] and not prev[i,j]:
                         increase_neighbors(matrix, i, j)
             prev, now = now, matrix > 9
-        matrix[matrix>9] = 0
+        matrix[now] = 0
         if (matrix == 0).all():
             return steps
 
