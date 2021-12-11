@@ -52,8 +52,54 @@ def part1(matrix):
 
     return flashes
 
-def part2(inputs):
-    pass
+def part2(matrix):
+
+    height, width = matrix.shape
+
+    adjacency = []
+    for i in range(height):
+        adj = []
+        for j in range(width):
+            element = []
+            if i > 0 and j > 0:
+                element.append((i-1, j-1))
+            if i > 0:
+                element.append((i-1, j))
+            if i > 0 and j < width - 1:
+                element.append((i-1, j+1))
+            if j < width - 1:
+                element.append((i, j+1))
+            if i < height - 1 and j < width - 1:
+                element.append((i+1, j+1))
+            if i < height - 1:
+                element.append((i+1, j))
+            if i < height - 1 and j > 0:
+                element.append((i+1, j-1))
+            if j > 0:
+                element.append((i, j-1))
+            adj.append(element)
+        adjacency.append(adj)
+
+    def increase_neighbors(matrix, i, j):
+        for k, l in adjacency[i][j]:
+            matrix[k,l] += 1
+
+    steps = 0
+    while True:
+        steps += 1
+        prev = matrix > 9
+        matrix += 1
+        now = matrix > 9
+        octos = {}
+        while (prev != now).any():
+            for i in range(height):
+                for j in range(width):
+                    if now[i,j] and not prev[i,j]:
+                        increase_neighbors(matrix, i, j)
+            prev, now = now, matrix > 9
+        matrix[matrix>9] = 0
+        if (matrix == 0).all():
+            return steps
 
 def read_inputs():
     with open('input.txt') as f:
