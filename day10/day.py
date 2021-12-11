@@ -1,4 +1,4 @@
-class Bracket(object):
+class Bracket(str):
 
     open_paren = '('
     open_brack = '['
@@ -14,34 +14,30 @@ class Bracket(object):
 
     _points = {')': 3, ']': 57, '}': 1197, '>': 25137}
 
-    def __init__(self, type):
-        self.type = type
-        self.parent = None
-
     def is_open_brack(self):
-        return self.type in self.open_brackets
+        return self in self.open_brackets
 
     def is_valid_closer(self, closer):
-        if self.type == self.open_paren:
-            return closer.type == self.close_paren
-        if self.type == self.open_brack:
-            return closer.type == self.close_brack
-        if self.type == self.open_curly:
-            return closer.type == self.close_curly
-        if self.type == self.open_angle:
-            return closer.type == self.close_angle
+        if self == self.open_paren:
+            return closer == self.close_paren
+        if self == self.open_brack:
+            return closer == self.close_brack
+        if self == self.open_curly:
+            return closer == self.close_curly
+        if self == self.open_angle:
+            return closer == self.close_angle
         return False
 
     def points(self):
-        return self._points[self.type]
+        return self._points[self]
 
 def part1(inputs):
 
     def evaluate_system(line):
-        root = Bracket(type=None)
+        root = Bracket('')
         system = root
         for char in line:
-            bracket = Bracket(type=char)
+            bracket = Bracket(char)
             if bracket.is_open_brack():
                 bracket.parent = system
                 system = bracket
