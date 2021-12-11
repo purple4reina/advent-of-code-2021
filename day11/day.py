@@ -115,10 +115,5 @@ def process(raw):
 
 if __name__ == '__main__':
     inputs = process(read_inputs())
-    #inputs = process("""11111
-    #        19991
-    #        19191
-    #        19991
-    #        11111""".strip())
     print(part1(inputs))
     print(part2(inputs))
