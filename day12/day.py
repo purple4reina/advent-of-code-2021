@@ -23,7 +23,7 @@ def part2(cave_map):
         for loc_to in cave_map[loc_from]:
             loc_stat = visited.get(loc_to, 0)
             new_visted = visited.copy()
-            if loc_to.islower() and loc_to != 'end':
+            if loc_to.islower():
                 if loc_stat == 2:
                     continue
                 if loc_stat == 1 and 2 in visited.values():
