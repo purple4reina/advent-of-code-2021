@@ -1,6 +1,3 @@
-import sys
-sys.setrecursionlimit(10**5)
-
 def memoize(fn):
     _cache = {}
     def wrap(*args):
@@ -39,11 +36,10 @@ def part1(cave):
                 global_lowest[0] = total
             return total
         if total >= global_lowest[0]:
-            return float('inf')
+            return total
         choices = []
         for k, l in neighbors_of[i][j]:
-            val = search(k, l, total + cave[k][l])
-            choices.append(val)
+            choices.append(search(k, l, total + cave[k][l]))
         return min(choices)
 
     global_lowest = [9 * height * width]
