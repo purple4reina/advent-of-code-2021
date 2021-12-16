@@ -107,6 +107,7 @@ def process_part2(raw):
     return cave
 
 if __name__ == '__main__':
-    inputs = process(read_inputs())
+    inputs = process_part1(read_inputs())
     print(part1(inputs))
+    inputs = process_part2(read_inputs())
     print(part2(inputs))
