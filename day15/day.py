@@ -1,5 +1,4 @@
-import sys
-sys.setrecursionlimit(10**5)
+import numpy as np
 
 def memoize(fn):
     _cache = {}
@@ -68,22 +67,28 @@ def part2(cave):
                 vals.append((i-1, j))
             row.append(vals)
         neighbors_of.append(row)
+    neighbors_of = np.array(neighbors_of, dtype=object)
+    cave = np.array(cave)
 
-    @memoize
-    def search(i, j, total):
-        if total >= global_lowest[0]:
-            return total
-        if i == height - 1 and j == width - 1:
-            if total < global_lowest[0]:
-                global_lowest[0] = total
-            return total
-        choices = []
-        for k, l in neighbors_of[i][j]:
-            choices.append(search(k, l, total + cave[k][l]))
-        return min(choices)
+    def smallest_unvisited():
+        idx = np.flatnonzero(unvisited)
+        return np.unravel_index(idx[np.take(distances, idx).argmin()],
+                distances.shape)
 
-    global_lowest = [9 * height * width]
-    return search(0, 0, 0)
+    unvisited = np.ones((height, width))
+    distances = np.full((height, width), height*width*10)
+    distances[0,0] = unvisited[0,0] = i = j = 0
+
+    while i < height - 1 or j < width - 1:
+        current_distance = distances[i,j]
+        for k, l in neighbors_of[i,j]:
+            if not unvisited[k,l]:
+                continue
+            distances[k,l] = min(distances[k,l], current_distance + cave[k,l])
+        unvisited[i,j] = False
+        i, j = smallest_unvisited()
+
+    return distances[i,j]
 
 def read_inputs():
     with open('input.txt') as f:
