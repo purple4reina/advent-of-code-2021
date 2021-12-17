@@ -82,8 +82,6 @@ def part2(cave):
     while i < height - 1 or j < width - 1:
         current_distance = distances[i,j]
         for k, l in neighbors_of[i,j]:
-            if not unvisited[k,l]:
-                continue
             distances[k,l] = min(distances[k,l], current_distance + cave[k,l])
         unvisited[i,j] = False
         i, j = smallest_unvisited()
