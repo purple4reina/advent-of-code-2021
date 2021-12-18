@@ -17,7 +17,7 @@ def part1(inputs):
     maxy = this_maxy = last_maxy = 0
     for x in range(xstart, xmax + 1):
         last_maxy, this_maxy = this_maxy, 0
-        for y in range(10000):
+        for y in range(200):
             this_maxy = xloc = yloc = 0
             xvel, yvel = x, y
             while True:
@@ -58,7 +58,7 @@ def part2(inputs):
 
     count = 0
     for x in range(xstart, xmax + 1):
-        for y in range(-100, 100):
+        for y in range(-200, 200):
             xloc = yloc = 0
             xvel, yvel = x, y
             while True:
