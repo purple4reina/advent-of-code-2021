@@ -10,7 +10,7 @@ def part1(inputs):
         return xloc > xmax or yloc < ymin
 
     maxy = 0
-    for x in range(100):
+    for x in range(xmax + 1):
         for y in range(100):
             this_maxy = xloc = yloc = 0
             xvel, yvel = x, y
