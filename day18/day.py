@@ -113,8 +113,17 @@ def part1(nums):
         num = add(num, nums.pop(0))
     return magnitude(num)
 
-def part2(inputs):
-    pass
+def part2(nums):
+    num_len, largest = len(nums), 0
+    for i in range(num_len):
+        for j in range(num_len):
+            if i == j:
+                continue
+            num = add(nums[i], nums[j])
+            mag = magnitude(num)
+            if mag > largest:
+                largest = mag
+    return largest
 
 def read_inputs():
     with open('input.txt') as f:
@@ -126,4 +135,5 @@ def process(raw):
 if __name__ == '__main__':
     inputs = process(read_inputs())
     print(part1(inputs))
+    inputs = process(read_inputs())
     print(part2(inputs))
