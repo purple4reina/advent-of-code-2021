@@ -7,11 +7,11 @@ def add(num1, num2):
     num = [num1, num2]
     while True:
         exp = explode(num)
-        if exp is not None:
+        if exp != num:
             num = exp
             continue
         spl = split(num)
-        if spl is not None:
+        if spl != num:
             num = spl
             continue
         break
