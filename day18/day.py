@@ -94,9 +94,9 @@ def split(num):
     return _split(num)[0]
 
 def part1(nums):
-    num = nums.pop()
+    num = nums.pop(0)
     while nums:
-        num = add(num, nums.pop())
+        num = add(num, nums.pop(0))
     return magnitude(num)
 
 def part2(inputs):
