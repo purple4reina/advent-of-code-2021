@@ -28,10 +28,24 @@ def explode(num):
     _replaced = [numstr]
     _digits = {str(i): True for i in range(10)}
 
+    def find_correct_split(node_str):
+        splits = numstr.split(node_str)
+        if len(splits) == 2:
+            return splits
+        split = ''
+        for i, spl in enumerate(splits[:-1]):
+            split += spl
+            lbracs = split.count('[')
+            rbracs = split.count(']')
+            if lbracs - rbracs == 4:
+                break
+            split += node_str
+        left, right = split, node_str.join(splits[i+1:])
+        return left, right
+
     def replace(num):
         node_str = str(num).replace(' ', '')
-
-        left, right = numstr.split(node_str, 1)
+        left, right = find_correct_split(node_str)
         left_len, right_len = len(left), len(right)
 
         new_right = ''
