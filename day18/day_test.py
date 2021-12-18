@@ -1,5 +1,5 @@
 import pytest
-from day import part1, process, magnitude, add, explode, split
+from day import part1, process, magnitude, add, explode, split, read_inputs
 
 _test_part1 = (
         ("""
@@ -152,3 +152,11 @@ _test_split = (
 @pytest.mark.parametrize('n,expect', _test_split)
 def test_split(n, expect):
     assert expect == split(n)
+
+_test_not_part1 = (
+        (process(read_inputs()), 2605),  # too low
+)
+
+@pytest.mark.parametrize('n,expect', _test_not_part1)
+def test_not_part1(n, expect):
+    assert expect != part1(n)
