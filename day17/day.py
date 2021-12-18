@@ -41,7 +41,41 @@ def part1(inputs):
     return maxy
 
 def part2(inputs):
-    pass
+
+    xmin, xmax, ymin, ymax = inputs
+
+    def in_target(xloc, yloc):
+        return xloc >= xmin and xloc <= xmax and \
+                yloc >= ymin and yloc <= ymax
+
+    def past_target(xloc, yloc):
+        return xloc > xmax or yloc < ymin
+
+    xstart = i = 0
+    while i < xmin:
+        xstart += 1
+        i += xstart
+
+    count = 0
+    for x in range(xstart, xmax + 1):
+        for y in range(-100, 100):
+            xloc = yloc = 0
+            xvel, yvel = x, y
+            while True:
+                xloc += xvel
+                yloc += yvel
+
+                if xvel > 0:
+                    xvel -= 1
+                yvel -= 1
+
+                if in_target(xloc, yloc):
+                    count += 1
+                    break
+                if past_target(xloc, yloc):
+                    break
+
+    return count
 
 def read_inputs():
     with open('input.txt') as f:
