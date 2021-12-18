@@ -1,5 +1,5 @@
 import pytest
-from day import part1, part2, process, magnitude
+from day import part1, part2, process, magnitude, add, explode, split
 
 _test_input = """
 [[[0,[5,8]],[[1,7],[9,6]]],[[4,[1,2]],[[1,4],2]]]
@@ -40,3 +40,38 @@ _test_magnitude = (
 @pytest.mark.parametrize('n,expect', _test_magnitude)
 def test_magnitude(n, expect):
     assert expect == magnitude(n)
+
+_test_add = (
+        ([1,2], [[3,4],5], [[1,2],[[3,4],5]]),
+        ([[[[4,3],4],4],[7,[[8,4],9]]], [1,1],
+            [[[[0,7],4],[[7,8],[6,0]]],[8,1]]),
+)
+
+@pytest.mark.parametrize('n1,n2,expect', _test_add)
+def test_add(n1, n2, expect):
+    assert expect == add(n1, n2)
+
+_test_explode = (
+        ([[[[[9,8],1],2],3],4], [[[[0,9],2],3],4]),
+        ([7,[6,[5,[4,[3,2]]]]], [7,[6,[5,[7,0]]]]),
+        ([[6,[5,[4,[3,2]]]],1], [[6,[5,[7,0]]],3]),
+        ([[3,[2,[1,[7,3]]]],[6,[5,[4,[3,2]]]]],
+            [[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]]),
+        ([[3,[2,[8,0]]],[9,[5,[4,[3,2]]]]], [[3,[2,[8,0]]],[9,[5,[7,0]]]]),
+)
+
+@pytest.mark.parametrize('n,expect', _test_explode)
+def test_explode(n, expect):
+    assert expect == explode(n)
+
+_test_split = (
+        ([[[[0,7],4],[15,[0,13]]],[1,1]], [[[[0,7],4],[[7,8],[0,13]]],[1,1]]),
+        ([[[[0,7],4],[[7,8],[0,13]]],[1,1]],
+            [[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]),
+        ([0,0], [0,0]),
+        ([[10,10],[10,10]], [[[5,5],10],[10,10]]),
+)
+
+@pytest.mark.parametrize('n,expect', _test_split)
+def test_split(n, expect):
+    assert expect == split(n)
