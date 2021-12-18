@@ -9,8 +9,13 @@ def part1(inputs):
     def past_target(xloc, yloc):
         return xloc > xmax or yloc < ymin
 
+    xstart = i = 0
+    while i < xmin:
+        xstart += 1
+        i += xstart
+
     maxy = 0
-    for x in range(xmax + 1):
+    for x in range(xstart, xmax + 1):
         for y in range(100):
             this_maxy = xloc = yloc = 0
             xvel, yvel = x, y
