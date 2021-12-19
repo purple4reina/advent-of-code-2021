@@ -49,21 +49,22 @@ def rotations(scanner, dims=2):
     for rotation in _rotations[dims]:
         rotated_scanner = []
         for vector in scanner:
-            rotated_scanner.append(rotation @ vector)
-        yield np.array(rotated_scanner)
+            rotated_scanner.append(tuple(rotation @ vector))
+        yield rotated_scanner
 
 def add_to_axis(vectors, offset, axis=0):
     new_vectors = []
     for vector in vectors:
-        new_vector = list(vector)
-        new_vector[axis] += offset
-        new_vectors.append(tuple(new_vector))
-    return np.array(new_vectors)
+        new_vector = vector[:axis] + (vector[axis] + offset,) + vector[axis+1:]
+        new_vectors.append(new_vector)
+    return new_vectors
 
 def place_scan(mapp, scanner, overlap=12):
     dims = len(scanner[0])
+    start = min(min(point) for point in mapp) - 1000
+    end = max(max(point) for point in mapp) + 1000
     for rotation in rotations(scanner, dims=dims):
-        for location in itertools.product(range(-100, 100), repeat=dims):
+        for location in itertools.product(range(start, end+1), repeat=dims):
             rotated_offset = rotation
             for axis, offset in enumerate(location):
                 rotated_offset = add_to_axis(rotated_offset, offset, axis=axis)
