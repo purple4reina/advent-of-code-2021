@@ -49,19 +49,26 @@ def rotations(scanner, dims=2):
     for rotation in _rotations[dims]:
         yield (rotation @ scanner.T).T
 
+def calculate_distances(arr1, arr2):
+    distances = {}
+    for a1 in arr1:
+        for a2 in arr2:
+            dist = tuple(v1 - v2 for v1, v2 in zip(a1, a2))
+            distances[dist] = distances.get(dist, 0) + 1
+    return distances
+
 def place_scan(mapp, scanner, overlap=12):
     dims = len(scanner[0])
-    start = min(min(point) for point in mapp) - 1000
-    end = max(max(point) for point in mapp) + 1000
     for rotation in rotations(scanner, dims=dims):
-        for location in itertools.product(range(start, end+1), repeat=dims):
-            rotated_offset = rotation.copy()
-            for axis, offset in enumerate(location):
-                rotated_offset[:,axis] += offset
-            rotated_and_offset_set = set(tuple(r) for r in rotated_offset)
-            if len(mapp & rotated_and_offset_set) >= overlap:
-                mapp |= rotated_and_offset_set
-                return mapp, True
+        all_distances = calculate_distances(mapp, rotation)
+        max_count, max_distance = max((v,k) for k,v in all_distances.items())
+        if max_count < overlap:
+            continue
+        for axis, distance in enumerate(max_distance):
+            rotation[:,axis] += distance
+        for r in rotation:
+            mapp.add(tuple(r))
+        return mapp, True
     return mapp, False
 
 def part1(scanners, overlap=12):
