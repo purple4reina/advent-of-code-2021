@@ -32,7 +32,7 @@ _rotations = {2: _rotations_2(), 3: _rotations_3()}
 
 def part1(scanners, overlap=12):
 
-    mapp = set(tuple(s) for s in scanners[0])
+    mapp = {tuple(s): True for s in scanners[0]}
     dims = len(scanners[0][0])
     scanners, retry_scanners = [np.array(s) for s in scanners[1:]], []
 
@@ -51,7 +51,7 @@ def part1(scanners, overlap=12):
                     continue
 
                 for r in rotation:
-                    mapp.add(tuple(r + max_distance))
+                    mapp[tuple(r + max_distance)] = True
                 break
 
             else:
