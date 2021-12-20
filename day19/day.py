@@ -45,42 +45,38 @@ _rotations = {
             R3_16, R3_17, R3_18, R3_19, R3_20, R3_21, R3_22, R3_23],
 }
 
-def rotations(scanner, dims=2):
-    for rotation in _rotations[dims]:
-        yield (rotation @ scanner.T).T
-
-def calculate_distances(arr1, arr2):
-    distances = {}
-    for a1 in arr1:
-        for a2 in arr2:
-            dist = tuple(v1 - v2 for v1, v2 in zip(a1, a2))
-            distances[dist] = distances.get(dist, 0) + 1
-    return distances
-
-def place_scan(mapp, scanner, overlap=12):
-    dims = len(scanner[0])
-    for rotation in rotations(scanner, dims=dims):
-        all_distances = calculate_distances(mapp, rotation)
-        max_count, max_distance = max((v,k) for k,v in all_distances.items())
-        if max_count < overlap:
-            continue
-        for axis, distance in enumerate(max_distance):
-            rotation[:,axis] += distance
-        for r in rotation:
-            mapp.add(tuple(r))
-        return mapp, True
-    return mapp, False
-
 def part1(scanners, overlap=12):
-    mapp = set(tuple(s) for s in scanners[-1])
-    scanners = [np.array(s) for s in scanners[:-1]]
+
+    mapp = set(scanners[0])
+    scanners = [np.array(s) for s in scanners[1:]]
+    dims = len(scanners[0][0])
+
     while len(scanners):
         retry_scanners = []
         for scanner in scanners:
-            mapp, placed = place_scan(mapp, scanner, overlap=overlap)
-            if not placed:
+            for rotation in ((r @ scanner.T).T for r in _rotations[dims]):
+
+                distances = {}
+                for a1 in mapp:
+                    for a2 in rotation:
+                        dist = sum(v1 - v2 for v1, v2 in zip(a1, a2))
+                        distances[dist] = distances.get(dist, 0) + 1
+
+                max_count, max_distance = max((v,k) for k,v in distances.items())
+                if max_count < overlap:
+                    continue
+
+                for axis, distance in enumerate(max_distance):
+                    rotation[:,axis] += distance
+                for r in rotation:
+                    mapp.add(tuple(r))
+                break
+
+            else:
                 retry_scanners.append(scanner)
-        scanners = np.array(retry_scanners)
+
+        scanners = retry_scanners
+
     return len(mapp)
 
 def part2(inputs):
