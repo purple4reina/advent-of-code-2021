@@ -47,17 +47,7 @@ _rotations = {
 
 def rotations(scanner, dims=2):
     for rotation in _rotations[dims]:
-        rotated_scanner = []
-        for vector in scanner:
-            rotated_scanner.append(tuple(rotation @ vector))
-        yield rotated_scanner
-
-def add_to_axis(vectors, offset, axis=0):
-    new_vectors = []
-    for vector in vectors:
-        new_vector = vector[:axis] + (vector[axis] + offset,) + vector[axis+1:]
-        new_vectors.append(new_vector)
-    return new_vectors
+        yield (rotation @ scanner.T).T
 
 def place_scan(mapp, scanner, overlap=12):
     dims = len(scanner[0])
@@ -65,9 +55,9 @@ def place_scan(mapp, scanner, overlap=12):
     end = max(max(point) for point in mapp) + 1000
     for rotation in rotations(scanner, dims=dims):
         for location in itertools.product(range(start, end+1), repeat=dims):
-            rotated_offset = rotation
+            rotated_offset = rotation.copy()
             for axis, offset in enumerate(location):
-                rotated_offset = add_to_axis(rotated_offset, offset, axis=axis)
+                rotated_offset[:,axis] += offset
             rotated_and_offset_set = set(tuple(r) for r in rotated_offset)
             if len(mapp & rotated_and_offset_set) >= overlap:
                 mapp |= rotated_and_offset_set
@@ -75,8 +65,9 @@ def place_scan(mapp, scanner, overlap=12):
     return mapp, False
 
 def part1(scanners, overlap=12):
-    mapp, scanners = set(tuple(s) for s in scanners[-1]), scanners[:-1]
-    while scanners.any():
+    mapp = set(tuple(s) for s in scanners[-1])
+    scanners = [np.array(s) for s in scanners[:-1]]
+    while len(scanners):
         retry_scanners = []
         for scanner in scanners:
             mapp, placed = place_scan(mapp, scanner, overlap=overlap)
