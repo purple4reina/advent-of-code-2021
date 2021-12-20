@@ -50,10 +50,8 @@ def part1(scanners, overlap=12):
                 if max_count < overlap:
                     continue
 
-                for axis, distance in enumerate(max_distance):
-                    rotation[:,axis] += distance
                 for r in rotation:
-                    mapp.add(tuple(r))
+                    mapp.add(tuple(r + max_distance))
                 break
 
             else:
