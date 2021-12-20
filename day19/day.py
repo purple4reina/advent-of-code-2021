@@ -1,49 +1,34 @@
 import itertools
 import numpy as np
 
-# 2-dimensions
-R2_0 = np.array([[1, 0], [0, 1]])
-R2_1 = np.array([[0, 1], [-1, 0]])
-R2_2 = R2_1 @ R2_1
-R2_3 = R2_2 @ R2_1
+def _rotations_2():
+    R2_0 = np.array([[1, 0], [0, 1]])
+    R2_1 = np.array([[0, 1], [-1, 0]])
+    R2_2 = R2_1 @ R2_1
+    R2_3 = R2_2 @ R2_1
+    return [R2_0, R2_1, R2_2, R2_3]
 
 # 3-dimensions
-_Rx = np.array([[1, 0, 0], [0, 0, 1], [0, -1, 0]])
-_Ry = np.array([[0, 0, -1], [0, 1, 0], [1, 0, 0]])
-_Rz = np.array([[1, 0, 0], [-1, 0, 0], [0, 0, 1]])
-_I = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+def _rotations_3():
+    Rx = np.array([[1, 0, 0], [0, 0, 1], [0, -1, 0]])
+    Ry = np.array([[0, 0, -1], [0, 1, 0], [1, 0, 0]])
+    Rz = np.array([[1, 0, 0], [-1, 0, 0], [0, 0, 1]])
+    I  = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
 
-R3_0  = _I
-R3_1  = _I                                     @ _Rz
-R3_2  = _I                                     @ _Rz @ _Rz
-R3_3  = _I                                     @ _Rz @ _Rz @_Rz
-R3_4  = _I @ _Rx
-R3_5  = _I @ _Rx                               @ _Rz
-R3_6  = _I @ _Rx                               @ _Rz @ _Rz
-R3_7  = _I @ _Rx                               @ _Rz @ _Rz @ _Rz
-R3_8  = _I @ _Rx @ _Rx
-R3_9  = _I @ _Rx @ _Rx                         @ _Rz
-R3_10  = _I @ _Rx @ _Rx                         @ _Rz @ _Rz
-R3_11  = _I @ _Rx @ _Rx                         @ _Rz @ _Rz @ _Rz
-R3_12  = _I @ _Rx @ _Rx @ _Rx
-R3_13  = _I @ _Rx @ _Rx @ _Rx                   @ _Rz
-R3_14  = _I @ _Rx @ _Rx @ _Rx                   @ _Rz @ _Rz
-R3_15  = _I @ _Rx @ _Rx @ _Rx                   @ _Rz @ _Rz @ _Rz
-R3_16  = _I                   @ _Ry
-R3_17  = _I                   @ _Ry             @ _Rz
-R3_18  = _I                   @ _Ry             @ _Rz @ _Rz
-R3_19  = _I                   @ _Ry             @ _Rz @ _Rz @ _Rz
-R3_20  = _I                   @ _Ry @ _Ry @ _Ry
-R3_21  = _I                   @ _Ry @ _Ry @ _Ry @ _Rz
-R3_22  = _I                   @ _Ry @ _Ry @ _Ry @ _Rz @ _Rz
-R3_23  = _I                   @ _Ry @ _Ry @ _Ry @ _Rz @ _Rz @ _Rz
+    rotations = {}
+    for rots in itertools.product(range(4), repeat=3):
+        rot = I
+        for x in range(rots[0]):
+            rot = rot @ Rx
+        for y in range(rots[1]):
+            rot = rot @ Ry
+        for z in range(rots[2]):
+            rot = rot @ Rz
+        rotations[str(rot)] = rot
 
-_rotations = {
-        2: [R2_0, R2_1, R2_2, R2_3],
-        3: [R3_0,  R3_1,  R3_2,  R3_3,  R3_4,  R3_5,  R3_6,  R3_7,
-            R3_8,  R3_9,  R3_10, R3_11, R3_12, R3_13, R3_14, R3_15,
-            R3_16, R3_17, R3_18, R3_19, R3_20, R3_21, R3_22, R3_23],
-}
+    return list(rotations.values())
+
+_rotations = {2: _rotations_2(), 3: _rotations_3()}
 
 def part1(scanners, overlap=12):
 
