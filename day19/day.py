@@ -32,19 +32,18 @@ _rotations = {2: _rotations_2(), 3: _rotations_3()}
 
 def part1(scanners, overlap=12):
 
-    mapp = set(scanners[0])
-    scanners = [np.array(s) for s in scanners[1:]]
+    mapp = set(tuple(s) for s in scanners[0])
     dims = len(scanners[0][0])
+    scanners, retry_scanners = [np.array(s) for s in scanners[1:]], []
 
     while len(scanners):
-        retry_scanners = []
         for scanner in scanners:
             for rotation in ((r @ scanner.T).T for r in _rotations[dims]):
 
                 distances = {}
-                for a1 in mapp:
-                    for a2 in rotation:
-                        dist = sum(v1 - v2 for v1, v2 in zip(a1, a2))
+                for m in mapp:
+                    for r in rotation:
+                        dist = tuple(m - r)
                         distances[dist] = distances.get(dist, 0) + 1
 
                 max_count, max_distance = max((v,k) for k,v in distances.items())
@@ -59,8 +58,7 @@ def part1(scanners, overlap=12):
 
             else:
                 retry_scanners.append(scanner)
-
-        scanners = retry_scanners
+        scanners, retry_scanners = retry_scanners, []
 
     return len(mapp)
 
