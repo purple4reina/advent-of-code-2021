@@ -10,23 +10,16 @@ def _rotations_2():
 
 # 3-dimensions
 def _rotations_3():
-    Rx = np.array([[1, 0, 0], [0, 0, 1], [0, -1, 0]])
-    Ry = np.array([[0, 0, -1], [0, 1, 0], [1, 0, 0]])
-    Rz = np.array([[1, 0, 0], [-1, 0, 0], [0, 0, 1]])
-    I  = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-
-    rotations = {}
-    for rots in itertools.product(range(4), repeat=3):
-        rot = I
-        for x in range(rots[0]):
-            rot = rot @ Rx
-        for y in range(rots[1]):
-            rot = rot @ Ry
-        for z in range(rots[2]):
-            rot = rot @ Rz
-        rotations[str(rot)] = rot
-
-    return list(rotations.values())
+    rots = []
+    for x, y, z in itertools.permutations([0, 1, 2]):
+        for sx, sy, sz in itertools.product([-1, 1], repeat=3):
+            rotation_matrix = np.zeros((3, 3))
+            rotation_matrix[0, x] = sx
+            rotation_matrix[1, y] = sy
+            rotation_matrix[2, z] = sz
+            if np.linalg.det(rotation_matrix) == 1:
+                rots.append(rotation_matrix)
+    return rots
 
 _rotations = {2: _rotations_2(), 3: _rotations_3()}
 
