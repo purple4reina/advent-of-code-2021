@@ -29,6 +29,7 @@ def test_part2():
 
 _test_not_part1 = (
         pytest.param(read_inputs(), 6039, id='my-puzzle-input'),  # too high
+        pytest.param(read_inputs(), 5828, id='my-puzzle-input'),  # too high
 )
 
 @pytest.mark.parametrize('raw,expect', _test_not_part1)
