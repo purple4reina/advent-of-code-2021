@@ -90,7 +90,7 @@ def part2(scanners, overlap=12):
             if dist > manhatan_max:
                 manhatan_max = dist
 
-    return manhatan_max
+    return int(manhatan_max)
 
 def read_inputs():
     with open('input.txt') as f:
