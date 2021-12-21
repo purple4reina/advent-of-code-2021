@@ -42,11 +42,12 @@ def part2(inputs):
     enhancer, input_image = inputs
 
     def enlarged_view():
+        big = 275
         shapex, shapey = input_image.shape
-        img = np.concatenate((np.zeros((500, shapey)), input_image), axis=0)
-        img = np.concatenate((img, np.zeros((shapex + 500, 500))), axis=1)
-        img = np.concatenate((img, np.zeros((500, shapey + 500))), axis=0)
-        img = np.concatenate((np.zeros((shapey + 1000, 500)), img), axis=1)
+        img = np.concatenate((np.zeros((big, shapey)), input_image), axis=0)
+        img = np.concatenate((img, np.zeros((shapex + big, big))), axis=1)
+        img = np.concatenate((img, np.zeros((big, shapey + big))), axis=0)
+        img = np.concatenate((np.zeros((shapey + big*2, big)), img), axis=1)
         return img
 
     def translate_image_at(i, j):
@@ -62,7 +63,8 @@ def part2(inputs):
 
     print(f'input_image:\n{printable_image(input_image)}')
     input_image = enlarged_view()
-    for _ in range(50):
+    for i in range(50):
+        print('i: ', i)
         shapex, shapey = input_image.shape
         output_image = np.zeros((shapex, shapey))
 
@@ -74,7 +76,7 @@ def part2(inputs):
         input_image = output_image
         print(f'input_image:\n{printable_image(input_image)}')
 
-    return int(output_image[2:-2,2:-2].sum())
+    return int(output_image[50:-50,50:-50].sum())
 
 def printable_image(image):
     return '\n'.join([''.join(['#' if i else '.' for i in row]) for row in image])
