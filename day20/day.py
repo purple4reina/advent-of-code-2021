@@ -25,7 +25,7 @@ def part1(inputs):
     for _ in range(2):
         input_image = enlarged_view()
         shapex, shapey = input_image.shape
-        output_image = np.zeros(input_image.shape)
+        output_image = np.zeros((shapex, shapey))
 
         for i in range(1, shapex - 1):
             for j in range(1, shapey - 1):
