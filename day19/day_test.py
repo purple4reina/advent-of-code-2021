@@ -1,19 +1,7 @@
 import pytest
 from day import part1, part2, process
 
-_test_part1 = (
-        pytest.param("""
-        --- scanner 0 ---
-        0,2
-        4,1
-        3,3
-
-        --- scanner 1 ---
-        -1,-1
-        -5,0
-        -2,1
-        """.strip(), 3, 3, id='2-dimensions'),
-        pytest.param("""
+_example_scanners = """
         --- scanner 0 ---
         404,-588,-901
         528,-643,409
@@ -150,10 +138,28 @@ _test_part1 = (
         891,-625,532
         -652,-548,-490
         30,-46,-14
-        """.strip(), 12, 79, id='3-dimensions'),
+        """.strip()
+
+_test_part1 = (
+        pytest.param("""
+        --- scanner 0 ---
+        0,2
+        4,1
+        3,3
+
+        --- scanner 1 ---
+        -1,-1
+        -5,0
+        -2,1
+        """.strip(), 3, 3, id='2-dimensions'),
+        pytest.param(_example_scanners, 12, 79, id='3-dimensions'),
 )
 
 @pytest.mark.parametrize('raw,overlap,expect', _test_part1)
 def test_part1(raw, overlap, expect):
     inputs = process(raw)
     assert expect == part1(inputs, overlap)
+
+def test_part2():
+    inputs = process(_example_scanners)
+    assert 3621 == part2(inputs)
