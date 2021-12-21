@@ -37,3 +37,12 @@ _test_not_part1 = (
 def test_not_part1(raw, expect):
     inputs = process(raw)
     assert expect != part1(inputs)
+
+_test_not_part2 = (
+        pytest.param(read_inputs(), 52212, id='my-puzzle-input'),  # too high
+)
+
+@pytest.mark.parametrize('raw,expect', _test_not_part2)
+def test_not_part2(raw, expect):
+    inputs = process(raw)
+    assert expect != part2(inputs)
