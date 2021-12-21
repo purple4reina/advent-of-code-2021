@@ -17,7 +17,7 @@ _test_input = """
 ..###
 """.strip()
 _test_part1_expect = 35
-_test_part2_expect = None
+_test_part2_expect = 3351
 
 def test_part1():
     inputs = process(_test_input)
