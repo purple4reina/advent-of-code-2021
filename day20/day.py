@@ -22,6 +22,7 @@ def part1(inputs):
     def surrounding_block(i, j):
         return input_image[i-1:i+2,j-1:j+2]
 
+    print(f'input_image:\n{printable_image(input_image)}')
     for _ in range(2):
         input_image = enlarged_view()
         shapex, shapey = input_image.shape
