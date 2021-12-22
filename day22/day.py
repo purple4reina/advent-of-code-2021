@@ -24,9 +24,9 @@ def part2(steps):
             mxe, mxs = min(xe, pxe), max(xs, pxs)
             mye, mys = min(ye, pye), max(ys, pys)
             mze, mzs = min(ze, pze), max(zs, pzs)
-            pval = (mxe - mxs + 1) * (mye - mys + 1) * (mze - mzs + 1)
-            if pval:
-                total += pval * paction
+            if mxe > mxs and mye > mys and mze > mzs:
+                total += (mxe - mxs + 1) * (mye - mys + 1) * \
+                        (mze - mzs + 1) * paction
                 new_prev_steps.append((-paction,
                     ((mxs, mxe), (mys, mye), (mzs, mze))))
     return total
