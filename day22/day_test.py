@@ -1,7 +1,7 @@
 import pytest
 from day import part1, part2, process
 
-_test_part1 = (
+_test_common = (
         pytest.param("""
         on x=1..3,y=1..3,z=1..3
         on x=2..4,y=2..4,z=2..4
@@ -33,30 +33,6 @@ _test_part1 = (
         off x=9..11,y=9..11,z=9..11
         on x=10..10,y=10..10,z=10..10
         """.strip(), 39, id='short'),
-        pytest.param("""
-        on x=-20..26,y=-36..17,z=-47..7
-        on x=-20..33,y=-21..23,z=-26..28
-        on x=-22..28,y=-29..23,z=-38..16
-        on x=-46..7,y=-6..46,z=-50..-1
-        on x=-49..1,y=-3..46,z=-24..28
-        on x=2..47,y=-22..22,z=-23..27
-        on x=-27..23,y=-28..26,z=-21..29
-        on x=-39..5,y=-6..47,z=-3..44
-        on x=-30..21,y=-8..43,z=-13..34
-        on x=-22..26,y=-27..20,z=-29..19
-        off x=-48..-32,y=26..41,z=-47..-37
-        on x=-12..35,y=6..50,z=-50..-2
-        off x=-48..-32,y=-32..-16,z=-15..-5
-        on x=-18..26,y=-33..15,z=-7..46
-        off x=-40..-22,y=-38..-28,z=23..41
-        on x=-16..35,y=-41..10,z=-47..6
-        off x=-32..-23,y=11..30,z=-14..3
-        on x=-49..-5,y=-3..45,z=-29..18
-        off x=18..30,y=-20..-8,z=-3..13
-        on x=-41..9,y=-7..43,z=-33..15
-        on x=-54112..-39298,y=-85059..-49293,z=-27449..7877
-        on x=967..23432,y=45373..81175,z=27513..53682
-        """.strip(), 590784, id='long'),
         pytest.param("""
         on x=-46..2,y=-26..20,z=-39..5
         on x=0..44,y=-44..0,z=-19..32
@@ -90,61 +66,39 @@ _test_part1 = (
         """.strip(), 499124, id='my-puzzle-3'),
 )
 
-@pytest.mark.parametrize('raw,expect', _test_part1)
+_test_part1 = (
+        pytest.param("""
+        on x=-20..26,y=-36..17,z=-47..7
+        on x=-20..33,y=-21..23,z=-26..28
+        on x=-22..28,y=-29..23,z=-38..16
+        on x=-46..7,y=-6..46,z=-50..-1
+        on x=-49..1,y=-3..46,z=-24..28
+        on x=2..47,y=-22..22,z=-23..27
+        on x=-27..23,y=-28..26,z=-21..29
+        on x=-39..5,y=-6..47,z=-3..44
+        on x=-30..21,y=-8..43,z=-13..34
+        on x=-22..26,y=-27..20,z=-29..19
+        off x=-48..-32,y=26..41,z=-47..-37
+        on x=-12..35,y=6..50,z=-50..-2
+        off x=-48..-32,y=-32..-16,z=-15..-5
+        on x=-18..26,y=-33..15,z=-7..46
+        off x=-40..-22,y=-38..-28,z=23..41
+        on x=-16..35,y=-41..10,z=-47..6
+        off x=-32..-23,y=11..30,z=-14..3
+        on x=-49..-5,y=-3..45,z=-29..18
+        off x=18..30,y=-20..-8,z=-3..13
+        on x=-41..9,y=-7..43,z=-33..15
+        on x=-54112..-39298,y=-85059..-49293,z=-27449..7877
+        on x=967..23432,y=45373..81175,z=27513..53682
+        """.strip(), 590784, id='long'),
+)
+
+@pytest.mark.parametrize('raw,expect', _test_common+_test_part1)
 def test_part1(raw, expect):
     inputs = process(raw)
     assert expect == part1(inputs)
 
 _test_part2 = (
-        pytest.param("""
-        on x=1..3,y=1..3,z=1..3
-        on x=2..4,y=2..4,z=2..4
-        on x=3..5,y=3..5,z=3..5
-        """.strip(), 65, id='tiny-1'),
-        pytest.param("""
-        on x=1..3,y=1..3,z=1..3
-        on x=2..4,y=2..4,z=2..4
-        off x=3..5,y=3..5,z=3..5
-        """.strip(), 38, id='tiny-2'),
-        pytest.param("""
-        on x=1..3,y=1..3,z=1..3
-        off x=2..4,y=2..4,z=2..4
-        on x=4..5,y=4..5,z=4..5
-        """.strip(), 27, id='tiny-3'),
-        pytest.param("""
-        on x=1..3,y=1..3,z=1..3
-        off x=2..4,y=2..4,z=2..4
-        on x=1..5,y=1..5,z=1..5
-        """.strip(), 125, id='tiny-4'),
-        pytest.param("""
-        on x=0..3,y=0..3,z=0..3
-        on x=2..4,y=2..4,z=2..4
-        off x=1..5,y=1..5,z=1..5
-        """.strip(), 37, id='tiny-5'),
-        pytest.param("""
-        on x=10..12,y=10..12,z=10..12
-        on x=11..13,y=11..13,z=11..13
-        off x=9..11,y=9..11,z=9..11
-        on x=10..10,y=10..10,z=10..10
-        """.strip(), 39, id='short'),
-        pytest.param("""
-        on x=-46..2,y=-26..20,z=-39..5
-        on x=0..44,y=-44..0,z=-19..32
-        on x=-44..10,y=-20..28,z=4..48
-        on x=-12..39,y=-35..9,z=-12..36
-        """.strip(), 344059, id='my-puzzle-1'),
-        pytest.param("""
-        on x=-46..2,y=-26..20,z=-39..5
-        on x=0..44,y=-44..0,z=-19..32
-        on x=-44..10,y=-20..28,z=4..48
-        on x=-12..39,y=-35..9,z=-12..36
-        on x=-20..31,y=-15..36,z=-44..2
-        on x=-18..36,y=-43..8,z=-12..41
-        on x=-24..27,y=-5..39,z=-30..24
-        on x=-40..4,y=-20..28,z=-33..14
-        on x=-16..30,y=-16..31,z=-12..32
-        on x=-3..48,y=-27..18,z=-5..39
-        """.strip(), 500809, id='my-puzzle-2'),
         pytest.param("""
         on x=-5..47,y=-31..22,z=-19..33
         on x=-44..5,y=-27..21,z=-14..35
@@ -209,7 +163,7 @@ _test_part2 = (
         """.strip(), 2758514936282235, id='huge', marks=pytest.mark.skip),
 )
 
-@pytest.mark.parametrize('raw,expect', _test_part2)
+@pytest.mark.parametrize('raw,expect', _test_common+_test_part2)
 def test_part2(raw, expect):
     inputs = process(raw)
     assert expect == part2(inputs)
