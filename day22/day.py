@@ -31,35 +31,6 @@ def part2(steps):
                     ((mxs, mxe), (mys, mye), (mzs, mze))))
     return total
 
-"""
-    on x=1..3,y=1..3,z=1..3
-    off x=2..4,y=2..4,z=2..4
-    on x=1..5,y=1..5,z=1..5
-
-    on sqr a
-      add all           a           27
-    off sqr b
-      sub inter         -a&b        -8
-    on sqr c
-      add all           c           125
-      sub inter        -a&c         -27
-      add inter-inter  a&b&c        8
-
-          +------------+
-          | a-ON       |
-          |    +-------+------+
-          |  0 |       |      |
-          |    |   0   | b-OFF|
-    +-----+----+--+    |      |
-    |     | 19 |8 |    |      |
-    |     +----+--+----+      |
-    |          |19|     0     |
-    |  c-ON    |  |           |
-    |          +--+-----------+
-    |     79      |
-    +-------------+
-"""
-
 def read_inputs():
     with open('input.txt') as f:
         return f.read().strip()
