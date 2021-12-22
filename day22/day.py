@@ -13,7 +13,6 @@ def part1(steps):
 def part2(steps):
     total, prev_steps, new_prev_steps = 0, [], []
     for step, (action, ranges) in enumerate(steps):
-        print('step: ', step)
         (xs, xe), (ys, ye), (zs, ze) = ranges
         total += (xe - xs + 1) * (ye - ys + 1) * (ze - zs + 1) * action
         if action:
@@ -24,9 +23,9 @@ def part2(steps):
             mxe, mxs = min(xe, pxe), max(xs, pxs)
             mye, mys = min(ye, pye), max(ys, pys)
             mze, mzs = min(ze, pze), max(zs, pzs)
-            val = (mxe - mxs + 1) * (mye - mys + 1) * (mze - mzs + 1) * paction
+            val = (mxe - mxs + 1) * (mye - mys + 1) * (mze - mzs + 1)
             if val:
-                total += val
+                total += val * paction
                 new_prev_steps.append((-paction,
                     ((mxs, mxe), (mys, mye), (mzs, mze))))
         prev_steps, new_prev_steps = new_prev_steps, []
