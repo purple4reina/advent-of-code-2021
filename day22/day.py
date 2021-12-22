@@ -19,6 +19,7 @@ def part2(steps):
         if action:
             new_prev_steps.append((-1, ranges))
         for paction, pranges in prev_steps:
+            new_prev_steps.append((paction, pranges))
             (pxs, pxe), (pys, pye), (pzs, pze) = pranges
             val = (min(xe,pxe) - max(xs,pxs) + 1) * \
                     (min(ye,pye) - max(ys,pys) + 1) * \
@@ -29,7 +30,7 @@ def part2(steps):
                        ((max(xs,pxs), min(xe,pxe)),
                         (max(ys,pys), min(ye,pye)),
                         (max(zs,pzs), min(ze,pze)))))
-        prev_steps = new_prev_steps.copy()
+        prev_steps, new_prev_steps = new_prev_steps, []
     return total
 
     """
