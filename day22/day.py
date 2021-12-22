@@ -21,15 +21,14 @@ def part2(steps):
         for paction, pranges in prev_steps:
             new_prev_steps.append((paction, pranges))
             (pxs, pxe), (pys, pye), (pzs, pze) = pranges
-            val = (min(xe,pxe) - max(xs,pxs) + 1) * \
-                    (min(ye,pye) - max(ys,pys) + 1) * \
-                    (min(ze,pze) - max(zs,pzs) + 1) * paction
+            mxe, mxs = min(xe, pxe), max(xs, pxs)
+            mye, mys = min(ye, pye), max(ys, pys)
+            mze, mzs = min(ze, pze), max(zs, pzs)
+            val = (mxe - mxs + 1) * (mye - mys + 1) * (mze - mzs + 1) * paction
             if val:
                 total += val
                 new_prev_steps.append((-paction,
-                       ((max(xs,pxs), min(xe,pxe)),
-                        (max(ys,pys), min(ye,pye)),
-                        (max(zs,pzs), min(ze,pze)))))
+                    ((mxs, mxe), (mys, mye), (mzs, mze))))
         prev_steps, new_prev_steps = new_prev_steps, []
     return total
 
