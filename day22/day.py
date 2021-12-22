@@ -1,12 +1,12 @@
 import numpy as np
 
 def part1(steps):
-    reactor = np.zeros((100, 100, 100), dtype=int)
+    reactor = np.zeros((101, 101, 101), dtype=int)
     for action, regions in steps:
         section = []
         for axis, (start, end) in enumerate(regions):
-            start += 50
-            end += 50 + 1
+            start = max(start, -50) + 50
+            end = min(end, 50) + 50 + 1
             section.append(slice(start, end))
         reactor[tuple(section)] = action
     return reactor.sum()
