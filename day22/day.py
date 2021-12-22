@@ -33,7 +33,7 @@ def part2(steps):
         prev_steps, new_prev_steps = new_prev_steps, []
     return total
 
-    """
+"""
     on x=1..3,y=1..3,z=1..3
     off x=2..4,y=2..4,z=2..4
     on x=1..5,y=1..5,z=1..5
@@ -60,7 +60,7 @@ def part2(steps):
     |          +--+-----------+
     |     79      |
     +-------------+
-    """
+"""
 
 def read_inputs():
     with open('input.txt') as f:
