@@ -15,8 +15,8 @@ def part2(steps):
     for step, (action, ranges) in enumerate(steps):
         prev_steps, new_prev_steps = new_prev_steps, []
         (xs, xe), (ys, ye), (zs, ze) = ranges
-        total += (xe - xs + 1) * (ye - ys + 1) * (ze - zs + 1) * action
         if action:
+            total += (xe - xs + 1) * (ye - ys + 1) * (ze - zs + 1)
             new_prev_steps.append((-1, ranges))
         for paction, pranges in prev_steps:
             new_prev_steps.append((paction, pranges))
