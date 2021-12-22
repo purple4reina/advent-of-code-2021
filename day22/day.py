@@ -13,6 +13,7 @@ def part1(steps):
 def part2(steps):
     total, prev_steps, new_prev_steps = 0, [], []
     for step, (action, ranges) in enumerate(steps):
+        prev_steps, new_prev_steps = new_prev_steps, []
         (xs, xe), (ys, ye), (zs, ze) = ranges
         total += (xe - xs + 1) * (ye - ys + 1) * (ze - zs + 1) * action
         if action:
@@ -28,7 +29,6 @@ def part2(steps):
                 total += val * paction
                 new_prev_steps.append((-paction,
                     ((mxs, mxe), (mys, mye), (mzs, mze))))
-        prev_steps, new_prev_steps = new_prev_steps, []
     return total
 
 """
