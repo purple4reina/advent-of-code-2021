@@ -9,7 +9,6 @@ def memoize(fn):
     return wrap
 
 def part1(rooms):
-    print('rooms: ', rooms)
 
     def complete(rooms):
         return rooms[0][0] == 'A' and rooms[0][1] == 'A' and \
@@ -138,7 +137,7 @@ def part1(rooms):
                         not hall[6]:
                     # C,6
                     # D,6
-                    yield (i, j), (4, 6), cost (7 + j)
+                    yield (i, j), (4, 6), cost * (7 + j)
                 if i == 1 and not hall[2] and not rooms[0][0] and \
                         rooms[0][1] == 'A' and who == 'A':
                     # C,A
@@ -218,7 +217,7 @@ def part1(rooms):
                         not rooms[1][1] and who == 'B':
                     # E,D
                     # F,D
-                    yield (i, j), (1, 1), cost * (4, j)
+                    yield (i, j), (1, 1), cost * (4 + j)
                 if i == 2 and not hall[4] and not rooms[3][0] and \
                         rooms[3][1] == 'D' and who == 'D':
                     # E,G
@@ -276,7 +275,7 @@ def part1(rooms):
                     # H,C
                     yield (i, j), (1, 0), cost * (6 + j)
                 if i == 3 and not hall[3] and not hall[4] and \
-                        not rooms[1][0] and not rooms[1][1] and who == 'B'
+                        not rooms[1][0] and not rooms[1][1] and who == 'B':
                     # G,D
                     # H,D
                     yield (i, j), (1, 1), cost * (7 + j)
@@ -293,81 +292,130 @@ def part1(rooms):
 
                 break
 
-        """
-        #############
-        #01.2.3.4.56#
-        ###A#C#E#G###
-          #B#D#F#H#
-          #########
-        """
         # hall
         for j, who in enumerate(hall):
             if not who:
                 continue
 
+            cost = _costs[who]
+            if j == 0 and not hall[1] and not rooms[0][0] and \
+                    rooms[0][1] == 'A' and who == 'A':
+                # 0,A
+                yield (4, j), (0, 0), cost * 3
+            if j == 0 and not hall[1] and not rooms[0][0] and \
+                    not rooms[0][1] and who == 'A':
+                # 0,B
+                yield (4, j), (0, 1), cost * 4
+            if j == 0 and not hall[1] and not hall[2] and not rooms[1][0] and \
+                    rooms[1][1] == 'B' and who == 'B':
+                # 0,C
+                yield (4, j), (1, 0), cost * 5
+            if j == 0 and not hall[1] and not hall[2] and not rooms[1][0] and \
+                    not rooms[1][1] and who == 'B':
+                # 0,D
+                yield (4, j), (1, 1), cost * 6
+            if j == 0 and not hall[1] and not hall[2] and not hall[3] and \
+                    not rooms[2][0] and rooms[2][1] == 'C' and who == 'C':
+                # 0,E
+                yield (4, j), (2, 0), cost * 7
+            if j == 0 and not hall[1] and not hall[2] and not hall[3] and \
+                    not rooms[2][0] and not rooms[2][1] and who == 'C':
+                # 0,F
+                yield (4, j), (2, 1), cost * 8
+            if j == 0 and not hall[1] and not hall[2] and not hall[3] and \
+                    not hall[4] and not rooms[3][0] and \
+                    rooms[3][1] == 'D' and who == 'D':
+                # 0,G
+                yield (4, j), (3, 0), cost * 9
+            if j == 0 and not hall[1] and not hall[2] and not hall[3] and \
+                    not hall[4] and not rooms[3][0] and \
+                    not rooms[3][1] and who == 'D':
+                # 0,H
+                yield (4, j), (3, 1), cost * 10
 
-        # 0,A
-        # 0,B
-        # 0,C
-        # 0,D
-        # 0,E
-        # 0,F
-        # 0,G
-        # 0,H
+            if j == 1 and not rooms[0][0] and rooms[0][1] == 'A' and \
+                    who == 'A':
+                # 1,A
+                yield (4, j), (0, 0), cost * 2
+            if j == 1 and not rooms[0][0] and not rooms[0][1] and who == 'A':
+                # 1,B
+                yield (4, j), (0, 1), cost * 3
+            if j == 1 and not hall[2] and not rooms[1][0] and \
+                    rooms[1][1] == 'B' and who == 'B':
+                # 1,C
+                yield (4, j), (1, 0), cost * 4
+            if j == 1 and not hall[2] and not rooms[1][0] and \
+                    not rooms[1][1] and who == 'B':
+                # 1,D
+                yield (4, j), (1, 1), cost * 5
+            if j == 1 and not hall[2] and not hall[3] and not rooms[2][0] and \
+                    rooms[2][1] == 'C' and who == 'C':
+                # 1,E
+                yield (4, j), (2, 0), cost * 6
+            if j == 1 and not hall[2] and not hall[3] and not rooms[2][0] and \
+                    not rooms[2][1] and who == 'C':
+                # 1,F
+                yield (4, j), (2, 1), cost * 7
+            if j == 1 and not hall[2] and not hall[3] and not hall[4] and \
+                    not rooms[3][0] and rooms[3][1] == 'D' and who == 'D':
+                # 1,G
+                yield (4, j), (3, 0), cost * 8
+            if j == 1 and not hall[2] and not hall[3] and not hall[4] and \
+                    not rooms[3][0] and not rooms[3][1] and who == 'D':
+                # 1,H
+                yield (4, j), (3, 1), cost * 9
 
-        # 1,A
-        # 1,B
-        # 1,C
-        # 1,D
-        # 1,E
-        # 1,F
-        # 1,G
-        # 1,H
+        """
+        ############
+        #01.2.3.4.56#
+        ###A#C#E#G###
+          #B#D#F#H#
+          #########
+        """
+                # 2,A
+                # 2,B
+                # 2,C
+                # 2,D
+                # 2,E
+                # 2,F
+                # 2,G
+                # 2,H
 
-        # 2,A
-        # 2,B
-        # 2,C
-        # 2,D
-        # 2,E
-        # 2,F
-        # 2,G
-        # 2,H
+                # 3,A
+                # 3,B
+                # 3,C
+                # 3,D
+                # 3,E
+                # 3,F
+                # 3,G
+                # 3,H
 
-        # 3,A
-        # 3,B
-        # 3,C
-        # 3,D
-        # 3,E
-        # 3,F
-        # 3,G
-        # 3,H
+                # 4,A
+                # 4,B
+                # 4,C
+                # 4,D
+                # 4,E
+                # 4,F
+                # 4,G
+                # 4,H
 
-        # 4,A
-        # 4,B
-        # 4,C
-        # 4,D
-        # 4,E
-        # 4,F
-        # 4,G
-        # 4,H
+                # 5,A
+                # 5,B
+                # 5,C
+                # 5,D
+                # 5,E
+                # 5,F
+                # 5,G
+                # 5,H
 
-        # 5,A
-        # 5,B
-        # 5,C
-        # 5,D
-        # 5,E
-        # 5,F
-        # 5,G
-        # 5,H
-
-        # 6,A
-        # 6,B
-        # 6,C
-        # 6,D
-        # 6,E
-        # 6,F
-        # 6,G
-        # 6,H
+                # 6,A
+                # 6,B
+                # 6,C
+                # 6,D
+                # 6,E
+                # 6,F
+                # 6,G
+                # 6,H
 
     @memoize
     def shuffle(rooms, energy):
