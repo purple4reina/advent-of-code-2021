@@ -10,89 +10,42 @@ def memoize(fn):
 
 def part1(instructions):
 
-    def validate(num):
-        z = 0
-        for digit, instr in zip(str(num), instructions):
-            if digit == '0':
+    glbs = {'w': 0, 'x': 0, 'y': 0, 'z': 0}
+    for i in range(-99, 100):
+        glbs[str(i)] = i
+
+    def validate(n):
+        num = []
+        while n:
+            n, r = divmod(n, 10)
+            if r == 0:
                 return False
-            z = create_function(instr, z)(digit)
-        return z == 0
+            num.append(r)
+        glbs['w'] = glbs['x'] = glbs['y'] = glbs['z'] = 0
 
-    top = 0
-    for num in range(11111111111111, 10**14):
-        if validate(num):
-            top = num
-    return top
-
-@memoize
-def create_function(instructions, z=0):
-
-    def inp(fn):
-        def _inp(w):
-            glbs = {'w': int(w), 'x': 0, 'y': 0, 'z': z}
-            for i in range(-99, 100):
-                glbs[str(i)] = i
-            return fn(glbs)
-        return _inp
-
-    def add(ab):
-        a, b = ab.split()
-        def _add(fn):
-            def __add(glbs):
-                glbs[a] = glbs[a] + glbs[b]
-                return fn(glbs)
-            return __add
-        return _add
-
-    def mul(ab):
-        a, b = ab.split()
-        def _mul(fn):
-            def __mul(glbs):
-                glbs[a] = glbs[a] + glbs[b]
-                return fn(glbs)
-            return __mul
-        return _mul
-
-    def div(ab):
-        a, b = ab.split()
-        def _div(fn):
-            def __div(glbs):
-                glbs[a] = glbs[a] // glbs[b]
-                return fn(glbs)
-            return __div
-        return _div
-
-    def mod(ab):
-        a, b = ab.split()
-        def _mod(fn):
-            def __mod(glbs):
-                glbs[a] = glbs[a] % glbs[b]
-                return fn(glbs)
-            return __mod
-        return _mod
-
-    def eql(ab):
-        a, b = ab.split()
-        def _eql(fn):
-            def __eql(glbs):
+        for instruction in instructions:
+            fn, ab = instruction.split(' ', 1)
+            if fn == 'inp':
+                glbs[ab] = num.pop(0)
+                continue
+            a, b = ab.split()
+            if fn == 'add':
+                glbs[a] += glbs[b]
+            elif fn == 'mul':
+                glbs[a] *= glbs[b]
+            elif fn == 'div':
+                glbs[a] //= glbs[b]
+            elif fn == 'mod':
+                glbs[a] %= glbs[b]
+            else:
                 glbs[a] = int(glbs[a] == glbs[b])
-                return fn(glbs)
-            return __eql
-        return _eql
 
-    def func(glbs):
-        return glbs['z']
+        return glbs['z'] == 0
 
-    _funcs = {
-            'inp': inp, 'add': add, 'mul': mul,
-            'div': div, 'mod': mod, 'eql': eql,
-    }
-
-    for instruction in instructions[:0:-1]:
-        f, ab = instruction.split(' ', 1)
-        func = _funcs[f](ab)(func)
-
-    return inp(func)
+    for num in range(10**14, 0, -1):
+        if num % 10**4 == 0: print('num: ', num)
+        if validate(num):
+            return num
 
 def part2(inputs):
     pass
@@ -102,14 +55,9 @@ def read_inputs():
         return f.read().strip()
 
 def process(raw):
-    instructions, instruction = [], []
+    instructions = []
     for line in raw.split('\n'):
-        if line.startswith('inp'):
-            if instruction:
-                instructions.append(tuple(instruction))
-                instruction = []
-        instruction.append(line.strip())
-    instructions.append(tuple(instruction))
+        instructions.append(line)
     return tuple(instructions)
 
 if __name__ == '__main__':
