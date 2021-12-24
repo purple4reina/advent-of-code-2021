@@ -1,10 +1,21 @@
 def part1(instructions):
-    for instr in instructions:
-        create_function(instr)
-    return
 
+    def validate(num):
+        z = 0
+        for digit, instr in zip(str(num), instructions):
+            if digit == '0':
+                return False
+            z = create_function(instr, z=z)(digit)
+        return z == 0
 
-def create_function(instructions):
+    top = 0
+    for num in range(11111111111111, 10**14):
+        if validate(num):
+            top = num
+
+    return top
+
+def create_function(instructions, z=0):
     """
     inp w
     mul x 0
@@ -28,7 +39,7 @@ def create_function(instructions):
 
     def inp(fn):
         def _inp(w):
-            glbs = {'w': w, 'x': 0, 'y': 0, 'z': 0}
+            glbs = {'w': int(w), 'x': 0, 'y': 0, 'z': z}
             for i in range(-99, 100):
                 glbs[str(i)] = i
             return fn(glbs)
