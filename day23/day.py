@@ -365,13 +365,6 @@ def part1(rooms):
                 # 1,H
                 yield (4, j), (3, 1), cost * 9
 
-        """
-        ############
-        #01.2.3.4.56#
-        ###A#C#E#G###
-          #B#D#F#H#
-          #########
-        """
             if j == 2 and not rooms[0][0] and rooms[0][1] == 'A' and who == 'A':
                 # 2,A
                 yield (4, j), (0, 0), cost * 2
@@ -401,6 +394,13 @@ def part1(rooms):
                 # 2,H
                 yield (4, j), (3, 1), cost * 7
 
+        """
+        ############
+        #01.2.3.4.56#
+        ###A#C#E#G###
+          #B#D#F#H#
+          #########
+        """
                 # 3,A
                 # 3,B
                 # 3,C
