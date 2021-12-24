@@ -52,13 +52,39 @@ def create_function(instructions):
             return __mul
         return _mul
 
+    def div(ab):
+        a, b = ab.split()
+        def _div(fn):
+            def __div(glbs):
+                glbs[a] = glbs[a] // glbs[b]
+                return fn(glbs)
+            return __div
+        return _div
+
+    def mod(ab):
+        a, b = ab.split()
+        def _mod(fn):
+            def __mod(glbs):
+                glbs[a] = glbs[a] % glbs[b]
+                return fn(glbs)
+            return __mod
+        return _mod
+
+    def eql(ab):
+        a, b = ab.split()
+        def _eql(fn):
+            def __eql(glbs):
+                glbs[a] = int(glbs[a] == glbs[b])
+                return fn(glbs)
+            return __eql
+        return _eql
+
     def func(glbs):
         return glbs['z']
 
     _funcs = {
-            'inp': inp,
-            'add': add,
-            'mul': mul,
+            'inp': inp, 'add': add, 'mul': mul,
+            'div': div, 'mod': mod, 'eql': eql,
     }
 
     for instruction in instructions[:0:-1]:
