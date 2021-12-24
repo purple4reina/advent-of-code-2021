@@ -13,12 +13,11 @@ def part1(instructions):
             num.append(r)
         glbs['w'] = glbs['x'] = glbs['y'] = glbs['z'] = 0
 
-        for instruction in instructions:
-            fn, ab = instruction.split(' ', 1)
+        for fn, ab in instructions:
             if fn == 'inp':
                 glbs[ab] = num.pop(0)
                 continue
-            a, b = ab.split()
+            a, b = ab
             if fn == 'add':
                 glbs[a] += glbs[b]
             elif fn == 'mul':
@@ -33,7 +32,6 @@ def part1(instructions):
         return glbs['z'] == 0
 
     for num in range(10**14, 0, -1):
-        if num % 10**4 == 0: print('num: ', num)
         if validate(num):
             return num
 
@@ -47,8 +45,14 @@ def read_inputs():
 def process(raw):
     instructions = []
     for line in raw.split('\n'):
-        instructions.append(line)
-    return tuple(instructions)
+        fn, ab = line.split(' ', 1)
+        inst = [fn]
+        if fn == 'inp':
+            inst.append(ab)
+        else:
+            inst.append(ab.split())
+        instructions.append(inst)
+    return instructions
 
 if __name__ == '__main__':
     inputs = process(read_inputs())
