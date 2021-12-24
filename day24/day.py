@@ -1,13 +1,3 @@
-def memoize(fn):
-    _cache = {}
-    def wrap(*args):
-        if args in _cache:
-            return _cache[args]
-        ret = fn(*args)
-        _cache[args] = ret
-        return ret
-    return wrap
-
 def part1(instructions):
 
     glbs = {'w': 0, 'x': 0, 'y': 0, 'z': 0}
