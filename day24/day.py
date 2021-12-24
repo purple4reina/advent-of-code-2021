@@ -16,26 +16,6 @@ def part1(instructions):
     return top
 
 def create_function(instructions, z=0):
-    """
-    inp w
-    mul x 0
-    add x z
-    mod x 26
-    div z 1
-    add x 15
-    eql x w
-    eql x 0
-    mul y 0
-    add y 25
-    mul y x
-    add y 1
-    mul z y
-    mul y 0
-    add y w
-    add y 4
-    mul y x
-    add z y
-    """
 
     def inp(fn):
         def _inp(w):
