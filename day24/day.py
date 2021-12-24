@@ -1,3 +1,13 @@
+def memoize(fn):
+    _cache = {}
+    def wrap(*args):
+        if args in _cache:
+            return _cache[args]
+        ret = fn(*args)
+        _cache[args] = ret
+        return ret
+    return wrap
+
 def part1(instructions):
 
     def validate(num):
@@ -5,16 +15,16 @@ def part1(instructions):
         for digit, instr in zip(str(num), instructions):
             if digit == '0':
                 return False
-            z = create_function(instr, z=z)(digit)
+            z = create_function(instr, z)(digit)
         return z == 0
 
     top = 0
     for num in range(11111111111111, 10**14):
         if validate(num):
             top = num
-
     return top
 
+@memoize
 def create_function(instructions, z=0):
 
     def inp(fn):
@@ -96,11 +106,11 @@ def process(raw):
     for line in raw.split('\n'):
         if line.startswith('inp'):
             if instruction:
-                instructions.append(instruction)
+                instructions.append(tuple(instruction))
                 instruction = []
         instruction.append(line.strip())
-    instructions.append(instruction)
-    return instructions
+    instructions.append(tuple(instruction))
+    return tuple(instructions)
 
 if __name__ == '__main__':
     inputs = process(read_inputs())
