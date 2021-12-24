@@ -33,12 +33,12 @@ def part1(instructions):
                 glbs[a] += glbs[b]
             elif fn == 'mul':
                 glbs[a] *= glbs[b]
-            elif fn == 'div':
-                glbs[a] //= glbs[b]
+            elif fn == 'eql':
+                glbs[a] = int(glbs[a] == glbs[b])
             elif fn == 'mod':
                 glbs[a] %= glbs[b]
             else:
-                glbs[a] = int(glbs[a] == glbs[b])
+                glbs[a] //= glbs[b]
 
         return glbs['z'] == 0
 
