@@ -23,5 +23,4 @@ _test_create_instructions = (
 @pytest.mark.parametrize('raw,inp,out', _test_create_instructions)
 def test_create_instructions(raw, inp, out):
     func = create_function(process(raw)[0])
-    print('func.__name__: ', func.__name__)
     assert out == func(inp)
