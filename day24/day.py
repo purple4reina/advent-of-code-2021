@@ -8,7 +8,7 @@ def validate(n):
 
     w = x = y = z = 0
 
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -26,7 +26,7 @@ def validate(n):
     y += 4
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -44,7 +44,7 @@ def validate(n):
     y += 16
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -62,7 +62,7 @@ def validate(n):
     y += 14
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -80,7 +80,7 @@ def validate(n):
     y += 3
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -98,7 +98,7 @@ def validate(n):
     y += 11
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -116,7 +116,7 @@ def validate(n):
     y += 13
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -134,7 +134,7 @@ def validate(n):
     y += 11
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -152,7 +152,7 @@ def validate(n):
     y += 7
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -170,7 +170,7 @@ def validate(n):
     y += 12
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -188,7 +188,7 @@ def validate(n):
     y += 15
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -206,7 +206,7 @@ def validate(n):
     y += 13
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -224,7 +224,7 @@ def validate(n):
     y += 1
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
@@ -242,7 +242,7 @@ def validate(n):
     y += 15
     y *= x
     z += y
-    w = num.pop(0)
+    w = num.pop()
     x *= 0
     x += z
     x %= 26
