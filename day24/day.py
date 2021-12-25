@@ -265,7 +265,7 @@ def validate(n):
 
 def part1(instructions):
 
-    for num in range(10**14-1, 0, -1):
+    for num in range(99999999999999, 11111111111110, -1):
         val = validate(num)
         if val is False:
             continue
