@@ -1,4 +1,4 @@
-def validate(instructions, n):
+def validate(n):
     num = []
     while n:
         n, r = divmod(n, 10)
@@ -264,8 +264,9 @@ def validate(instructions, n):
     return z
 
 def part1(instructions):
-    for num in range(10**14, 0, -1):
-        val = validate(instructions, num)
+
+    for num in range(10**14-1, 0, -1):
+        val = validate(num)
         if val is False:
             continue
         if val == 0:

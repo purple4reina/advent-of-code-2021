@@ -66,7 +66,6 @@ _test_validate = (
 
 @pytest.mark.parametrize('n,expect', _test_validate)
 def test_validate(n, expect):
-    instructions = process(read_inputs())
-    assert expect == validate(instructions, n)
+    assert expect == validate(n)
 
 # 99989699369811 is too high
