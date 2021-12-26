@@ -104,65 +104,66 @@ def part1(rooms):
                         # B,H
                         yield (i, j), (3, 1), cost * (9 + j)
 
-                if i == 1 and not hall[0] and not hall[1] and not hall[2]:
-                    # C,0
-                    # D,0
-                    yield (i, j), (4, 0), cost * (5 + j)
-                if i == 1 and not hall[1] and not hall[2]:
-                    # C,1
-                    # D,1
-                    yield (i, j), (4, 1), cost * (4 + j)
-                if i == 1 and not hall[2]:
-                    # C,2
-                    # D,2
-                    yield (i, j), (4, 2), cost * (2 + j)
-                if i == 1 and not hall[3]:
-                    # C,3
-                    # D,3
-                    yield (i, j), (4, 3), cost * (2 + j)
-                if i == 1 and not hall[3] and not hall[4]:
-                    # C,4
-                    # D,4
-                    yield (i, j), (4, 4), cost * (4 + j)
-                if i == 1 and not hall[3] and not hall[4] and not hall[5]:
-                    # C,5
-                    # D,5
-                    yield (i, j), (4, 5), cost * (6 + j)
-                if i == 1 and not hall[3] and not hall[4] and not hall[5] and \
-                        not hall[6]:
-                    # C,6
-                    # D,6
-                    yield (i, j), (4, 6), cost * (7 + j)
-                if i == 1 and not hall[2] and not rooms[0][0] and \
-                        rooms[0][1] == 'A' and who == 'A':
-                    # C,A
-                    # D,A
-                    yield (i, j), (0, 0), cost * (4 + j)
-                if i == 1 and not hall[2] and not rooms[0][0] and \
-                        not rooms[0][1] and who == 'A':
-                    # C,B
-                    # D,B
-                    yield (i, j), (0, 1), cost * (5 + j)
-                if i == 1 and not hall[3] and not rooms[2][0] and \
-                        rooms[2][1] == 'C' and who == 'C':
-                    # C,E
-                    # D,E
-                    yield (i, j), (2, 0), cost * (4 + j)
-                if i == 1 and not hall[3] and not rooms[2][0] and \
-                        not rooms[2][1] and who == 'C':
-                    # C,F
-                    # D,F
-                    yield (i, j), (2, 1), cost * (5 + j)
-                if i == 1 and not hall[3] and not hall[4] and \
-                        not rooms[3][0] and rooms[3][1] == 'D' and who == 'D':
-                    # C,G
-                    # D,G
-                    yield (i, j), (3, 0), cost * (6 + j)
-                if i == 1 and not hall[3] and not hall[4] and \
-                        not rooms[3][0] and not rooms[3][1] and who == 'D':
-                    # C,H
-                    # D,H
-                    yield (i, j), (3, 1), cost * (7 + j)
+                if i == 1:
+                    if not hall[0] and not hall[1] and not hall[2]:
+                        # C,0
+                        # D,0
+                        yield (i, j), (4, 0), cost * (5 + j)
+                    if not hall[1] and not hall[2]:
+                        # C,1
+                        # D,1
+                        yield (i, j), (4, 1), cost * (4 + j)
+                    if not hall[2]:
+                        # C,2
+                        # D,2
+                        yield (i, j), (4, 2), cost * (2 + j)
+                    if not hall[3]:
+                        # C,3
+                        # D,3
+                        yield (i, j), (4, 3), cost * (2 + j)
+                    if not hall[3] and not hall[4]:
+                        # C,4
+                        # D,4
+                        yield (i, j), (4, 4), cost * (4 + j)
+                    if not hall[3] and not hall[4] and not hall[5]:
+                        # C,5
+                        # D,5
+                        yield (i, j), (4, 5), cost * (6 + j)
+                    if not hall[3] and not hall[4] and not hall[5] and \
+                            not hall[6]:
+                        # C,6
+                        # D,6
+                        yield (i, j), (4, 6), cost * (7 + j)
+                    if not hall[2] and not rooms[0][0] and \
+                            rooms[0][1] == 'A' and who == 'A':
+                        # C,A
+                        # D,A
+                        yield (i, j), (0, 0), cost * (4 + j)
+                    if not hall[2] and not rooms[0][0] and \
+                            not rooms[0][1] and who == 'A':
+                        # C,B
+                        # D,B
+                        yield (i, j), (0, 1), cost * (5 + j)
+                    if not hall[3] and not rooms[2][0] and \
+                            rooms[2][1] == 'C' and who == 'C':
+                        # C,E
+                        # D,E
+                        yield (i, j), (2, 0), cost * (4 + j)
+                    if not hall[3] and not rooms[2][0] and \
+                            not rooms[2][1] and who == 'C':
+                        # C,F
+                        # D,F
+                        yield (i, j), (2, 1), cost * (5 + j)
+                    if not hall[3] and not hall[4] and not rooms[3][0] and \
+                            rooms[3][1] == 'D' and who == 'D':
+                        # C,G
+                        # D,G
+                        yield (i, j), (3, 0), cost * (6 + j)
+                    if not hall[3] and not hall[4] and not rooms[3][0] and \
+                            not rooms[3][1] and who == 'D':
+                        # C,H
+                        # D,H
+                        yield (i, j), (3, 1), cost * (7 + j)
 
                 if i == 2 and not hall[0] and not hall[1] and not hall[2] and \
                         not hall[3]:
