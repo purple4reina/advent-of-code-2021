@@ -10,11 +10,9 @@ def memoize(fn):
 
 def part1(rooms):
 
+    _complete = (('A',)*2, ('B',)*2, ('C',)*2, ('D',)*2, (0,)*7)
     def complete(rooms):
-        return rooms[0][0] == 'A' and rooms[0][1] == 'A' and \
-                rooms[1][0] == 'B' and rooms[1][1] == 'B' and \
-                rooms[2][0] == 'C' and rooms[2][1] == 'C' and \
-                rooms[3][0] == 'D' and rooms[3][1] == 'D'
+        return rooms == _complete
 
     def move(rooms, start, stop):
         (i, j), (k, l) = start, stop
