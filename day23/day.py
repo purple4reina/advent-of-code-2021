@@ -421,12 +421,17 @@ def part1(rooms):
     shuffle(rooms, 0)
     return min_energy[0]
 
-def part2(inputs):
-    pass
+def part2(rooms):
+    return part1(process_extra(rooms))
 
 def read_inputs():
     with open('input.txt') as f:
         return f.read().strip()
+
+def process_extra(rooms):
+    (a, b), (c, d), (e, f), (g, h), i = rooms
+    return ((a, 'D', 'D', b), (c, 'C', 'B', d),
+            (e, 'B', 'A', f), (g, 'A', 'C', h), i)
 
 def process(raw):
     rooms = [[] for _ in range(4)]
