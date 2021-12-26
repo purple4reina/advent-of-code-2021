@@ -374,34 +374,26 @@ def part1(rooms):
                         yield (4, j), (3, k), cost * (6 + k)
 
                 if j == 3:
-                    if not hall[2] and not rooms[0][0] and rooms[0][1] == 'A' and \
-                            who == 'A':
+                    if not hall[2] and empty(rooms[0][:k+1]) and \
+                            full(rooms[0][k+1:], 'A') and who == 'A':
                         # 3,A
-                        yield (4, j), (0, 0), cost * 4
-                    if not hall[2] and not rooms[0][0] and not rooms[0][1] and \
-                            who == 'A':
                         # 3,B
-                        yield (4, j), (0, 1), cost * 5
-                    if not rooms[1][0] and rooms[1][1] == 'B' and who == 'B':
+                        yield (4, j), (0, k), cost * (4 + k)
+                    if empty(rooms[1][:k+1]) and \
+                            full(rooms[1][k+1:], 'B') and who == 'B':
                         # 3,C
-                        yield (4, j), (1, 0), cost * 2
-                    if not rooms[1][0] and not rooms[1][1] and who == 'B':
                         # 3,D
-                        yield (4, j), (1, 1), cost * 3
-                    if not rooms[2][0] and rooms[2][1] == 'C' and who == 'C':
+                        yield (4, j), (1, k), cost * (2 + k)
+                    if empty(rooms[2][:k+1]) and \
+                            full(rooms[2][k+1:], 'C') and who == 'C':
                         # 3,E
-                        yield (4, j), (2, 0), cost * 2
-                    if not rooms[2][0] and not rooms[2][1] and who == 'C':
                         # 3,F
-                        yield (4, j), (2, 1), cost * 3
-                    if not hall[4] and not rooms[3][0] and rooms[3][1] == 'D' and \
-                            who == 'D':
+                        yield (4, j), (2, k), cost * (2 + k)
+                    if not hall[4] and empty(rooms[3][:k+1]) and \
+                            full(rooms[3][k+1:], 'D') and who == 'D':
                         # 3,G
-                        yield (4, j), (3, 0), cost * 4
-                    if not hall[4] and not rooms[3][0] and not rooms[3][1] and \
-                            who == 'D':
                         # 3,H
-                        yield (4, j), (3, 1), cost * 5
+                        yield (4, j), (3, k), cost * (4 + k)
 
                 if j == 4:
                     if not hall[2] and not hall[3] and not rooms[0][0] and \
