@@ -24,6 +24,15 @@ def part1(rooms):
 
     _costs = {'A': 1, 'B': 10, 'C': 100, 'D': 1000}
     def movements(rooms):
+
+        """
+        #############
+        #01.2.3.4.56#
+        ###A#C#E#G###
+          #B#D#F#H#
+          #########
+        """
+
         hall = rooms[4]
 
         # rooms
@@ -438,7 +447,7 @@ def part1(rooms):
                 # 4,C
                 yield (4, j), (1, 0), cost * 4
             if j == 4 and not hall[3] and not rooms[1][0] and \
-                    not rooms[1][1] and whoo == 'B':
+                    not rooms[1][1] and who == 'B':
                 # 4,D
                 yield (4, j), (1, 1), cost * 5
             if j == 4 and not rooms[2][0] and rooms[2][1] == 'C' and \
@@ -457,11 +466,11 @@ def part1(rooms):
                 yield (4, j), (3, 1), cost * 3
 
             if j == 5 and not hall[2] and not hall[3] and not hall[4] and \
-                    not roooms[0][0] and rooms[0][1] == 'A' and who == 'A':
+                    not rooms[0][0] and rooms[0][1] == 'A' and who == 'A':
                 # 5,A
                 yield (4, j), (0, 0), cost * 8
             if j == 5 and not hall[2] and not hall[3] and not hall[4] and \
-                    not rooms[0][0] and not rooms[0][1] and whoo == 'A':
+                    not rooms[0][0] and not rooms[0][1] and who == 'A':
                 # 5,B
                 yield (4, j), (0, 1), cost * 9
             if j == 5 and not hall[3] and not hall[4] and not rooms[1][0] and \
@@ -477,7 +486,7 @@ def part1(rooms):
                 # 5,E
                 yield (4, j), (2, 0), cost * 4
             if j == 5 and not hall[4] and not rooms[2][0] and \
-                    not rooms[2][1] and who == 'C'
+                    not rooms[2][1] and who == 'C':
                 # 5,F
                 yield (4, j), (2, 1), cost * 5
             if j == 5 and not rooms[3][0] and rooms[3][1] == 'D' and \
@@ -488,21 +497,40 @@ def part1(rooms):
                 # 5,H
                 yield (4, j), (3, 1), cost * 3
 
-            """
-            #############
-            #01.2.3.4.56#
-            ###A#C#E#G###
-              #B#D#F#H#
-              #########
-            """
+            if j == 6 and not hall[2] and not hall[3] and not hall[4] and \
+                    not hall[5] and not rooms[0][0] and \
+                    rooms[0][1] == 'A' and who == 'A':
                 # 6,A
+                yield (4, j), (0, 0), cost * 9
+            if j == 6 and not hall[2] and not hall[3] and not hall[4] and \
+                    not hall[5] and not rooms[0][0] and \
+                    not rooms[0][1] and who == 'A':
                 # 6,B
+                yield (4, j), (0, 1), cost * 10
+            if j == 6 and not hall[3] and not hall[4] and not hall[5] and \
+                    not rooms[1][0] and rooms[1][1] == 'B' and who == 'B':
                 # 6,C
+                yield (4, j), (1, 0), cost * 7
+            if j == 6 and not hall[3] and not hall[4] and not hall[5] and \
+                    not rooms[1][0] and not rooms[1][1] and who == 'B':
                 # 6,D
+                yield (4, j), (1, 1), cost * 8
+            if j == 6 and not hall[4] and not hall[5] and not rooms[2][0] and \
+                    rooms[2][1] == 'C' and who == 'C':
                 # 6,E
+                yield (4, j), (2, 0), cost * 5
+            if j == 6 and not hall[4] and not hall[5] and not rooms[2][0] and \
+                    not rooms[2][1] and who == 'C':
                 # 6,F
+                yield (4, j), (2, 1), cost * 6
+            if j == 6 and not hall[5] and not rooms[3][0] and \
+                    rooms[3][1] == 'D' and who == 'D':
                 # 6,G
+                yield (4, j), (3, 0), cost * 3
+            if j == 6 and not hall[5] and not rooms[3][0] and \
+                    not rooms[3][1] and who == 'D':
                 # 6,H
+                yield (4, j), (3, 1), cost * 4
 
     @memoize
     def shuffle(rooms, energy):
