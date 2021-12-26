@@ -9,8 +9,9 @@ def memoize(fn):
     return wrap
 
 def part1(rooms):
+    size = len(rooms[0])
 
-    _complete = (('A',)*2, ('B',)*2, ('C',)*2, ('D',)*2, (0,)*7)
+    _complete = (('A',)*size, ('B',)*size, ('C',)*size, ('D',)*size, (0,)*7)
     def complete(rooms):
         return rooms == _complete
 
@@ -302,7 +303,7 @@ def part1(rooms):
 
         # hall
         for j, who in enumerate(hall):
-            for k in range(2):
+            for k in range(size):
                 if not who:
                     continue
 
