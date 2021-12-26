@@ -21,6 +21,7 @@ def part1(rooms):
         return tuple(tuple(r) for r in new_rooms)
 
     _costs = {'A': 1, 'B': 10, 'C': 100, 'D': 1000}
+    _rooms = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
     def movements(rooms):
 
         """
@@ -38,13 +39,7 @@ def part1(rooms):
             for j, who in enumerate(room):
                 if not who:
                     continue
-                if i == 0 and all(a == 'A' for a in rooms[0][j:]):
-                    continue
-                if i == 1 and all(b == 'B' for b in rooms[1][j:]):
-                    continue
-                if i == 2 and all(c == 'C' for c in rooms[2][j:]):
-                    continue
-                if i == 3 and all(d == 'D' for d in rooms[3][j:]):
+                if all(a == _rooms[i] for a in rooms[i][j:]):
                     continue
 
                 cost = _costs[who]
