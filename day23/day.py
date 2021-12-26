@@ -38,21 +38,13 @@ def part1(rooms):
             for j, who in enumerate(room):
                 if not who:
                     continue
-                if i == 0 and j == 1 and who == 'A':
+                if i == 0 and all(a == 'A' for a in rooms[0][j:]):
                     continue
-                if i == 0 and j == 0 and rooms[0][1] == 'A' and who == 'A':
+                if i == 1 and all(b == 'B' for b in rooms[1][j:]):
                     continue
-                if i == 1 and j == 1 and who == 'B':
+                if i == 2 and all(c == 'C' for c in rooms[2][j:]):
                     continue
-                if i == 1 and j == 0 and rooms[1][1] == 'B' and who == 'B':
-                    continue
-                if i == 2 and j == 1 and who == 'C':
-                    continue
-                if i == 2 and j == 0 and rooms[2][1] == 'C' and who == 'C':
-                    continue
-                if i == 3 and j == 1 and who == 'D':
-                    continue
-                if i == 3 and j == 0 and rooms[3][1] == 'D' and who == 'D':
+                if i == 3 and all(d == 'D' for d in rooms[3][j:]):
                     continue
 
                 cost = _costs[who]
