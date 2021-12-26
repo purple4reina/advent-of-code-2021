@@ -327,7 +327,7 @@ def part1(instructions):
         func = funcs[i]
         for w in range(9, 0, -1):
             ws[i] = w
-            for z_in in range(10**4):
+            for z_in in range(10**6):
                 if func(w, z_in) == z_out:
                     if i == 0:
                         print('ws: ', ws)
