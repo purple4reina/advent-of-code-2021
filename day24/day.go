@@ -319,7 +319,7 @@ func func13(w, z int) int {
 	return z
 }
 
-const maxZ = 1e2
+const maxZ = 1e6
 
 type answer [14]int
 
@@ -351,6 +351,7 @@ func part1() answer {
 			ws[i] = w
 			for z_in := 0; z_in < maxZ; z_in++ {
 				if funcs[i](w, z_in) == z_out {
+					fmt.Printf("i,ws:\t%#v\t%v\n", i, ws[i:])
 					if i == 0 {
 						return true
 					}
