@@ -26,6 +26,10 @@ def part1(rooms):
     def full(rooms, letter):
         return all(r == letter for r in rooms)
 
+    def placeable(rooms, who, k, letter):
+        return empty(rooms[:k+1]) and full(rooms[k+1:], letter) and \
+                who == letter
+
     _costs = {'A': 1, 'B': 10, 'C': 100, 'D': 1000}
     _rooms = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
     def movements(rooms):
@@ -304,187 +308,140 @@ def part1(rooms):
 
                 cost = _costs[who]
                 if j == 0:
-                    if not hall[1] and empty(rooms[0][:k+1]) and \
-                            full(rooms[0][k+1:], 'A') and who == 'A':
+                    if not hall[1] and placeable(rooms[0], who, k, 'A'):
                         # 0,A
                         # 0,B
                         yield (4, j), (0, k), cost * (3 + k)
                     if not hall[1] and not hall[2] and \
-                            empty(rooms[1][:k+1]) and \
-                            full(rooms[1][k+1:], 'B') and who == 'B':
+                            placeable(rooms[1], who, k, 'B'):
                         # 0,C
                         # 0,D
                         yield (4, j), (1, k), cost * (5 + k)
                     if not hall[1] and not hall[2] and not hall[3] and \
-                            empty(rooms[2][:k+1]) and \
-                            full(rooms[2][k+1:], 'C') and who == 'C':
+                            placeable(rooms[2], who, k, 'C'):
                         # 0,E
                         yield (4, j), (2, k), cost * (7 + k)
                     if not hall[1] and not hall[2] and not hall[3] and \
-                            not hall[4] and empty(rooms[3][:k+1]) and \
-                            full(rooms[3][k+1:], 'D') and who == 'D':
+                            not hall[4] and placeable(rooms[3], who, k, 'D'):
                         # 0,G
                         # 0,H
                         yield (4, j), (3, k), cost * (9 + k)
 
                 if j == 1:
-                    if empty(rooms[0][:k+1]) and \
-                            full(rooms[0][k+1:], 'A') and who == 'A':
+                    if placeable(rooms[0], who, k, 'A'):
                         # 1,A
                         # 1,B
                         yield (4, j), (0, k), cost * (2 + k)
-                    if not hall[2] and empty(rooms[1][:k+1]) and \
-                            full(rooms[1][k+1:], 'B') and who == 'B':
+                    if not hall[2] and placeable(rooms[1], who, k, 'B'):
                         # 1,C
                         # 1,D
                         yield (4, j), (1, k), cost * (4 + k)
                     if not hall[2] and not hall[3] and \
-                            empty(rooms[2][:k+1]) and \
-                            full(rooms[2][k+1:], 'C') and who == 'C':
+                            placeable(rooms[2], who, k, 'C'):
                         # 1,E
                         yield (4, j), (2, k), cost * (6 + k)
                     if not hall[2] and not hall[3] and not hall[4] and \
-                            empty(rooms[3][:k+1]) and \
-                            full(rooms[3][k+1:], 'D') and who == 'D':
+                            placeable(rooms[3], who, k, 'D'):
                         # 1,G
                         # 1,H
                         yield (4, j), (3, k), cost * 8
 
                 if j == 2:
-                    if empty(rooms[0][:k+1]) and \
-                            full(rooms[0][k+1:], 'A') and who == 'A':
+                    if placeable(rooms[0], who, k, 'A'):
                         # 2,A
                         # 2,B
                         yield (4, j), (0, k), cost * (2 + k)
-                    if empty(rooms[1][:k+1]) and \
-                            full(rooms[1][k+1:], 'B') and who == 'B':
+                    if placeable(rooms[1], who, k, 'B'):
                         # 2,C
                         # 2,D
                         yield (4, j), (1, k), cost * (2 + k)
-                    if not hall[3] and empty(rooms[2][:k+1]) and \
-                            full(rooms[2][k+1:], 'C') and who == 'C':
+                    if not hall[3] and placeable(rooms[2], who, k, 'C'):
                         # 2,E
                         # 2,F
                         yield (4, j), (2, k), cost * (4 + k)
                     if not hall[3] and not hall[4] and \
-                            empty(rooms[3][:k+1]) and \
-                            full(rooms[3][k+1:], 'D') and who == 'D':
+                            placeable(rooms[3], who, k, 'D'):
                         # 2,G
                         # 2,H
                         yield (4, j), (3, k), cost * (6 + k)
 
                 if j == 3:
-                    if not hall[2] and empty(rooms[0][:k+1]) and \
-                            full(rooms[0][k+1:], 'A') and who == 'A':
+                    if not hall[2] and placeable(rooms[0], who, k, 'A'):
                         # 3,A
                         # 3,B
                         yield (4, j), (0, k), cost * (4 + k)
-                    if empty(rooms[1][:k+1]) and \
-                            full(rooms[1][k+1:], 'B') and who == 'B':
+                    if placeable(rooms[1], who, k, 'B'):
                         # 3,C
                         # 3,D
                         yield (4, j), (1, k), cost * (2 + k)
-                    if empty(rooms[2][:k+1]) and \
-                            full(rooms[2][k+1:], 'C') and who == 'C':
+                    if placeable(rooms[2], who, k, 'C'):
                         # 3,E
                         # 3,F
                         yield (4, j), (2, k), cost * (2 + k)
-                    if not hall[4] and empty(rooms[3][:k+1]) and \
-                            full(rooms[3][k+1:], 'D') and who == 'D':
+                    if not hall[4] and placeable(rooms[3], who, k, 'D'):
                         # 3,G
                         # 3,H
                         yield (4, j), (3, k), cost * (4 + k)
 
                 if j == 4:
                     if not hall[2] and not hall[3] and \
-                            empty(rooms[0][:k+1]) and \
-                            full(rooms[0][k+1:], 'A') and who == 'A':
+                            placeable(rooms[0], who, k, 'A'):
                         # 4,A
                         # 4,B
                         yield (4, j), (0, k), cost * (6 + k)
-                    if not hall[3] and empty(rooms[1][:k+1]) and \
-                            full(rooms[1][k+1:], 'B') and who == 'B':
+                    if not hall[3] and placeable(rooms[1], who, k, 'B'):
                         # 4,C
                         # 4,D
                         yield (4, j), (1, k), cost * (4 + k)
-                    if empty(rooms[2][:k+1]) and \
-                            full(rooms[2][k+1:], 'C') and who == 'C':
+                    if placeable(rooms[2], who, k, 'C'):
                         # 4,E
                         # 4,F
                         yield (4, j), (2, k), cost * (2 + k)
-                    if empty(rooms[3][:k+1]) and \
-                            full(rooms[3][k+1:], 'D') and who == 'D':
+                    if placeable(rooms[3], who, k, 'D'):
                         # 4,G
                         # 4,H
                         yield (4, j), (3, k), cost * (2 + k)
 
                 if j == 5:
                     if not hall[2] and not hall[3] and not hall[4] and \
-                            not rooms[0][0] and rooms[0][1] == 'A' and who == 'A':
+                            placeable(rooms[0], who, k, 'A'):
                         # 5,A
-                        yield (4, j), (0, 0), cost * 8
-                    if not hall[2] and not hall[3] and not hall[4] and \
-                            not rooms[0][0] and not rooms[0][1] and who == 'A':
                         # 5,B
-                        yield (4, j), (0, 1), cost * 9
-                    if not hall[3] and not hall[4] and not rooms[1][0] and \
-                            rooms[1][1] == 'B' and who == 'B':
+                        yield (4, j), (0, k), cost * (8 + k)
+                    if not hall[3] and not hall[4] and \
+                            placeable(rooms[1], who, k, 'B'):
                         # 5,C
-                        yield (4, j), (1, 0), cost * 6
-                    if not hall[3] and not hall[4] and not rooms[1][0] and \
-                            not rooms[1][1] and who == 'B':
                         # 5,D
-                        yield (4, j), (1, 1), cost * 7
-                    if not hall[4] and not rooms[2][0] and rooms[2][1] == 'C' and \
-                            who == 'C':
+                        yield (4, j), (1, k), cost * (6 + k)
+                    if not hall[4] and placeable(rooms[2], who, k, 'C'):
                         # 5,E
-                        yield (4, j), (2, 0), cost * 4
-                    if not hall[4] and not rooms[2][0] and not rooms[2][1] and \
-                            who == 'C':
                         # 5,F
-                        yield (4, j), (2, 1), cost * 5
-                    if not rooms[3][0] and rooms[3][1] == 'D' and who == 'D':
+                        yield (4, j), (2, k), cost * (4 + k)
+                    if placeable(rooms[3], who, k, 'D'):
                         # 5,G
-                        yield (4, j), (3, 0), cost * 2
-                    if not rooms[3][0] and not rooms[3][1] and who == 'D':
                         # 5,H
-                        yield (4, j), (3, 1), cost * 3
+                        yield (4, j), (3, k), cost * (2 + k)
 
                 if j == 6:
                     if not hall[2] and not hall[3] and not hall[4] and \
-                            not hall[5] and not rooms[0][0] and \
-                            rooms[0][1] == 'A' and who == 'A':
+                            not hall[5] and placeable(rooms[0], who, k, 'A'):
                         # 6,A
-                        yield (4, j), (0, 0), cost * 9
-                    if not hall[2] and not hall[3] and not hall[4] and \
-                            not hall[5] and not rooms[0][0] and \
-                            not rooms[0][1] and who == 'A':
                         # 6,B
-                        yield (4, j), (0, 1), cost * 10
+                        yield (4, j), (0, k), cost * (9 + k)
                     if not hall[3] and not hall[4] and not hall[5] and \
-                            not rooms[1][0] and rooms[1][1] == 'B' and who == 'B':
+                            placeable(rooms[1], who, k, 'B'):
                         # 6,C
-                        yield (4, j), (1, 0), cost * 7
-                    if not hall[3] and not hall[4] and not hall[5] and \
-                            not rooms[1][0] and not rooms[1][1] and who == 'B':
                         # 6,D
-                        yield (4, j), (1, 1), cost * 8
-                    if not hall[4] and not hall[5] and not rooms[2][0] and \
-                            rooms[2][1] == 'C' and who == 'C':
+                        yield (4, j), (1, k), cost * (7 + k)
+                    if not hall[4] and not hall[5] and \
+                            placeable(rooms[2], who, k, 'C'):
                         # 6,E
-                        yield (4, j), (2, 0), cost * 5
-                    if not hall[4] and not hall[5] and not rooms[2][0] and \
-                            not rooms[2][1] and who == 'C':
                         # 6,F
-                        yield (4, j), (2, 1), cost * 6
-                    if not hall[5] and not rooms[3][0] and rooms[3][1] == 'D' and \
-                            who == 'D':
+                        yield (4, j), (2, k), cost * (5 + k)
+                    if not hall[5] and placeable(rooms[3], who, k, 'D'):
                         # 6,G
-                        yield (4, j), (3, 0), cost * 3
-                    if not hall[5] and not rooms[3][0] and not rooms[3][1] and \
-                            who == 'D':
                         # 6,H
-                        yield (4, j), (3, 1), cost * 4
+                        yield (4, j), (3, k), cost * (3 + k)
 
     @memoize
     def shuffle(rooms, energy):
