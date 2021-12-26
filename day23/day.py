@@ -85,35 +85,27 @@ def part1(rooms):
                         # A,6
                         # B,6
                         yield (i, j), (4, 6), cost * (9 + j)
-                    if not hall[2] and not rooms[1][0] and \
-                            rooms[1][1] == 'B' and who == 'B':
-                        # A,C
-                        # B,C
-                        yield (i, j), (1, 0), cost * (4 + j)
-                    if not hall[2] and not rooms[1][0] and who == 'B':
-                        # A,D
-                        # B,D
-                        yield (i, j), (1, 1), cost * (5 + j)
-                    if not hall[2] and not hall[3] and not rooms[2][0] and \
-                            rooms[2][1] == 'C' and who == 'C':
-                        # A,E
-                        # B,E
-                        yield (i, j), (2, 0), cost * (6 + j)
-                    if not hall[2] and not hall[3] and not rooms[2][0] and \
-                            who == 'C':
-                        # A,F
-                        # B,F
-                        yield (i, j), (2, 1), cost * (7 + j)
-                    if not hall[2] and not hall[3] and not hall[4] and \
-                            not rooms[3][0] and rooms[3][1] == 'D' and who == 'D':
-                        # A,G
-                        # B,G
-                        yield (i, j), (3, 0), cost * (8 + j)
-                    if not hall[2] and not hall[3] and not hall[4] and \
-                            not rooms[3][0] and who == 'D':
-                        # A,H
-                        # B,H
-                        yield (i, j), (3, 1), cost * (9 + j)
+                    for k in range(size):
+                        if not hall[2] and placeable(rooms[1], who, k, 'B'):
+                            # A,C
+                            # B,C
+                            # A,D
+                            # B,D
+                            yield (i, j), (1, k), cost * (4 + j + k)
+                        if not hall[2] and not hall[3] and \
+                                placeable(rooms[2], who, k, 'C'):
+                            # A,E
+                            # B,E
+                            # A,F
+                            # B,F
+                            yield (i, j), (2, 0), cost * (6 + j + k)
+                        if not hall[2] and not hall[3] and not hall[4] and \
+                                placeable(rooms[3], who, k, 'D'):
+                            # A,G
+                            # B,G
+                            # A,H
+                            # B,H
+                            yield (i, j), (3, 0), cost * (8 + j + k)
 
                 if i == 1:
                     if not hall[0] and not hall[1] and not hall[2]:
@@ -145,36 +137,26 @@ def part1(rooms):
                         # C,6
                         # D,6
                         yield (i, j), (4, 6), cost * (7 + j)
-                    if not hall[2] and not rooms[0][0] and \
-                            rooms[0][1] == 'A' and who == 'A':
-                        # C,A
-                        # D,A
-                        yield (i, j), (0, 0), cost * (4 + j)
-                    if not hall[2] and not rooms[0][0] and \
-                            not rooms[0][1] and who == 'A':
-                        # C,B
-                        # D,B
-                        yield (i, j), (0, 1), cost * (5 + j)
-                    if not hall[3] and not rooms[2][0] and \
-                            rooms[2][1] == 'C' and who == 'C':
-                        # C,E
-                        # D,E
-                        yield (i, j), (2, 0), cost * (4 + j)
-                    if not hall[3] and not rooms[2][0] and \
-                            not rooms[2][1] and who == 'C':
-                        # C,F
-                        # D,F
-                        yield (i, j), (2, 1), cost * (5 + j)
-                    if not hall[3] and not hall[4] and not rooms[3][0] and \
-                            rooms[3][1] == 'D' and who == 'D':
-                        # C,G
-                        # D,G
-                        yield (i, j), (3, 0), cost * (6 + j)
-                    if not hall[3] and not hall[4] and not rooms[3][0] and \
-                            not rooms[3][1] and who == 'D':
-                        # C,H
-                        # D,H
-                        yield (i, j), (3, 1), cost * (7 + j)
+                    for k in range(size):
+                        if not hall[2] and placeable(rooms[0], who, k, 'A'):
+                            # C,A
+                            # D,A
+                            # C,B
+                            # D,B
+                            yield (i, j), (0, k), cost * (4 + j + k)
+                        if not hall[3] and placeable(rooms[2], who, k, 'C'):
+                            # C,E
+                            # D,E
+                            # C,F
+                            # D,F
+                            yield (i, j), (2, k), cost * (4 + j + k)
+                        if not hall[3] and not hall[4] and \
+                                placeable(rooms[3], who, k, 'D'):
+                            # C,G
+                            # D,G
+                            # C,H
+                            # D,H
+                            yield (i, j), (3, k), cost * (6 + j + k)
 
                 if i == 2:
                     if not hall[0] and not hall[1] and not hall[2] and \
