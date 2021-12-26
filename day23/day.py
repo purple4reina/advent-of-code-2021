@@ -20,6 +20,12 @@ def part1(rooms):
         new_rooms[i][j], new_rooms[k][l] = 0, new_rooms[i][j]
         return tuple(tuple(r) for r in new_rooms)
 
+    def empty(rooms):
+        return not any(rooms)
+
+    def full(rooms, letter):
+        return all(r == letter for r in rooms)
+
     _costs = {'A': 1, 'B': 10, 'C': 100, 'D': 1000}
     _rooms = {0: 'A', 1: 'B', 2: 'C', 3: 'D'}
     def movements(rooms):
@@ -298,72 +304,51 @@ def part1(rooms):
 
                 cost = _costs[who]
                 if j == 0:
-                    if not hall[1] and not rooms[0][0] and \
-                            rooms[0][1] == 'A' and who == 'A':
+                    if not hall[1] and empty(rooms[0][:k+1]) and \
+                            full(rooms[0][k+1:], 'A') and who == 'A':
                         # 0,A
-                        yield (4, j), (0, 0), cost * 3
-                    if not hall[1] and not rooms[0][0] and not rooms[0][1] and \
-                            who == 'A':
                         # 0,B
-                        yield (4, j), (0, 1), cost * 4
-                    if not hall[1] and not hall[2] and not rooms[1][0] and \
-                            rooms[1][1] == 'B' and who == 'B':
+                        yield (4, j), (0, 0), cost * (3 + k)
+                    if not hall[1] and not hall[2] and \
+                            empty(rooms[1][:k+1]) and \
+                            full(rooms[1][k+1:], 'B') and who == 'B':
                         # 0,C
-                        yield (4, j), (1, 0), cost * 5
-                    if not hall[1] and not hall[2] and not rooms[1][0] and \
-                            not rooms[1][1] and who == 'B':
                         # 0,D
-                        yield (4, j), (1, 1), cost * 6
+                        yield (4, j), (1, 0), cost * (5 + k)
                     if not hall[1] and not hall[2] and not hall[3] and \
-                            not rooms[2][0] and rooms[2][1] == 'C' and who == 'C':
+                            empty(rooms[2][:k+1]) and \
+                            full(rooms[2][k+1:], 'C') and who == 'C':
                         # 0,E
-                        yield (4, j), (2, 0), cost * 7
+                        yield (4, j), (2, 0), cost * (7 + k)
                     if not hall[1] and not hall[2] and not hall[3] and \
-                            not rooms[2][0] and not rooms[2][1] and who == 'C':
-                        # 0,F
-                        yield (4, j), (2, 1), cost * 8
-                    if not hall[1] and not hall[2] and not hall[3] and \
-                            not hall[4] and not rooms[3][0] and \
-                            rooms[3][1] == 'D' and who == 'D':
+                            not hall[4] and empty(rooms[3][:k+1]) and \
+                            full(rooms[3][k+1:], 'D') and who == 'D':
                         # 0,G
-                        yield (4, j), (3, 0), cost * 9
-                    if not hall[1] and not hall[2] and not hall[3] and \
-                            not hall[4] and not rooms[3][0] and \
-                            not rooms[3][1] and who == 'D':
                         # 0,H
-                        yield (4, j), (3, 1), cost * 10
+                        yield (4, j), (3, 0), cost * (9 + k)
 
                 if j == 1:
-                    if not rooms[0][0] and rooms[0][1] == 'A' and who == 'A':
+                    if empty(rooms[0][:k+1]) and \
+                            full(rooms[0][k+1:], 'A') and who == 'A':
                         # 1,A
-                        yield (4, j), (0, 0), cost * 2
-                    if not rooms[0][0] and not rooms[0][1] and who == 'A':
                         # 1,B
-                        yield (4, j), (0, 1), cost * 3
-                    if not hall[2] and not rooms[1][0] and rooms[1][1] == 'B' and \
-                            who == 'B':
+                        yield (4, j), (0, 0), cost * (2 + k)
+                    if not hall[2] and empty(rooms[1][:k+1]) and \
+                            full(rooms[1][k+1:], 'B') and who == 'B':
                         # 1,C
-                        yield (4, j), (1, 0), cost * 4
-                    if not hall[2] and not rooms[1][0] and not rooms[1][1] and \
-                            who == 'B':
                         # 1,D
-                        yield (4, j), (1, 1), cost * 5
-                    if not hall[2] and not hall[3] and not rooms[2][0] and \
-                            rooms[2][1] == 'C' and who == 'C':
+                        yield (4, j), (1, 0), cost * (4 + k)
+                    if not hall[2] and not hall[3] and \
+                            empty(rooms[2][:k+1]) and \
+                            full(rooms[2][k+1:], 'C') and who == 'C':
                         # 1,E
-                        yield (4, j), (2, 0), cost * 6
-                    if not hall[2] and not hall[3] and not rooms[2][0] and \
-                            not rooms[2][1] and who == 'C':
-                        # 1,F
-                        yield (4, j), (2, 1), cost * 7
+                        yield (4, j), (2, 0), cost * (6 + k)
                     if not hall[2] and not hall[3] and not hall[4] and \
-                            not rooms[3][0] and rooms[3][1] == 'D' and who == 'D':
+                            empty(rooms[3][:k+1]) and \
+                            full(rooms[3][k+1:], 'D') and who == 'D':
                         # 1,G
-                        yield (4, j), (3, 0), cost * 8
-                    if not hall[2] and not hall[3] and not hall[4] and \
-                            not rooms[3][0] and not rooms[3][1] and who == 'D':
                         # 1,H
-                        yield (4, j), (3, 1), cost * 9
+                        yield (4, j), (3, 0), cost * 8
 
                 if j == 2:
                     if not rooms[0][0] and rooms[0][1] == 'A' and who == 'A':
