@@ -370,6 +370,41 @@ func part1() answer {
 	return ws
 }
 
+func part2() answer {
+
+	var (
+		ws     answer
+		search func(int, int) bool
+	)
+
+	funcs := [14]func(int, int) int{func00, func01, func02, func03, func04,
+		func05, func06, func07, func08, func09, func10, func11, func12, func13}
+
+	search = cache(func(z_out, i int) bool {
+		for w := 1; w < 10; w++ {
+			ws[i] = w
+			for z_in := 0; z_in < maxZ; z_in++ {
+				if funcs[i](w, z_in) == z_out {
+					fmt.Printf("i,ws:\t%#v\t%v\n", i, ws[i:])
+					if i == 0 {
+						return true
+					}
+					if ok := search(z_in, i-1); ok {
+						return true
+					}
+				}
+			}
+		}
+		return false
+	})
+
+	if ok := search(0, 13); ok {
+		fmt.Println("FOUND")
+	}
+	return ws
+}
+
 func main() {
 	fmt.Println(part1())
+	fmt.Println(part2())
 }
