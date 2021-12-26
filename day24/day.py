@@ -319,21 +319,25 @@ def func13(w, z):
 def part1(instructions):
     funcs = [func00, func01, func02, func03, func04, func05, func06, func07,
             func08, func09, func10, func11, func12, func13]
+    ws = [0] * 14
 
-    def search(z_out, i, ws):
+    @memoize
+    def search(z_out, i):
+        print('z_out,i: ', z_out,i)
         func = funcs[i]
         for w in range(9, 0, -1):
-            print('i,w: ', i,w)
-            for z_in in range(10**7):
+            ws[i] = w
+            for z_in in range(10**4):
                 if func(w, z_in) == z_out:
-                    print('w,z_in: ', w,z_in)
-                    new_ws = ws + (w,)
                     if i == 0:
-                        print(new_ws)
-                    else:
-                        search(z_in, i - 1, new_ws)
+                        print('ws: ', ws)
+                        return True
+                    if search(z_in, i - 1):
+                        return True
+        return False
 
-    return search(0, 13, tuple())
+    search(0, 13)
+    return ws
 
 def part2(inputs):
     pass
