@@ -425,6 +425,37 @@ def part1(rooms):
                 # 3,H
                 yield (4, j), (3, 1), cost * 5
 
+            if j == 4 and not hall[2] and not hall[3] and not rooms[0][0] and \
+                    rooms[0][1] == 'A' and who == 'A':
+                # 4,A
+                yield (4, j), (0, 0), cost * 6
+            if j == 4 and not hall[2] and not hall[3] and not rooms[0][0] and \
+                    not rooms[0][1] and who == 'A':
+                # 4,B
+                yield (4, j), (0, 1), cost * 7
+            if j == 4 and not hall[3] and not rooms[1][0] and \
+                    rooms[1][1] == 'B' and who == 'B':
+                # 4,C
+                yield (4, j), (1, 0), cost * 4
+            if j == 4 and not hall[3] and not rooms[1][0] and \
+                    not rooms[1][1] and whoo == 'B':
+                # 4,D
+                yield (4, j), (1, 1), cost * 5
+            if j == 4 and not rooms[2][0] and rooms[2][1] == 'C' and \
+                    who == 'C':
+                # 4,E
+                yield (4, j), (2, 0), cost * 2
+            if j == 4 and not rooms[2][0] and not rooms[2][1] and who == 'C':
+                # 4,F
+                yield (4, j), (2, 1), cost * 3
+            if j == 4 and not rooms[3][0] and rooms[3][1] == 'D' and \
+                    who == 'D':
+                # 4,G
+                yield (4, j), (3, 0), cost * 2
+            if j == 4 and not rooms[3][0] and not rooms[3][1] and who == 'D':
+                # 4,H
+                yield (4, j), (3, 1), cost * 3
+
             """
             #############
             #01.2.3.4.56#
@@ -432,15 +463,6 @@ def part1(rooms):
               #B#D#F#H#
               #########
             """
-                # 4,A
-                # 4,B
-                # 4,C
-                # 4,D
-                # 4,E
-                # 4,F
-                # 4,G
-                # 4,H
-
                 # 5,A
                 # 5,B
                 # 5,C
