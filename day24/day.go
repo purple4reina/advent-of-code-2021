@@ -323,6 +323,19 @@ const maxZ = 1e2
 
 type answer [14]int
 
+func cache(fn func(int, int) bool) func(int, int) bool {
+	cache := make(map[[2]int]bool)
+	return func(a int, b int) bool {
+		key := [2]int{a, b}
+		if val, ok := cache[key]; ok {
+			return val
+		}
+		val := fn(a, b)
+		cache[key] = val
+		return val
+	}
+}
+
 func part1() answer {
 
 	var (
@@ -333,7 +346,7 @@ func part1() answer {
 	funcs := [14]func(int, int) int{func00, func01, func02, func03, func04,
 		func05, func06, func07, func08, func09, func10, func11, func12, func13}
 
-	search = func(z_out, i int) bool {
+	search = cache(func(z_out, i int) bool {
 		for w := 9; w > 0; w-- {
 			ws[i] = w
 			for z_in := 0; z_in < maxZ; z_in++ {
@@ -348,7 +361,7 @@ func part1() answer {
 			}
 		}
 		return false
-	}
+	})
 
 	if ok := search(0, 13); ok {
 		fmt.Println("FOUND")
