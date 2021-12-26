@@ -317,55 +317,23 @@ def func13(w, z):
     return z
 
 def part1(instructions):
-    least = 10**14
-    z_00 = 0
-    for w_00 in range(9, 0, -1):
-        z_01 = func00(w_00, z_00)
-        for w_01 in range(9, 0, -1):
-            z_02 = func01(w_01, z_01)
-            for w_02 in range(9, 0, -1):
-                z_03 = func02(w_02, z_02)
-                for w_03 in range(9, 0, -1):
-                    z_04 = func03(w_03, z_03)
-                    for w_04 in range(9, 0, -1):
-                        z_05 = func04(w_04, z_04)
-                        for w_05 in range(9, 0, -1):
-                            z_06 = func05(w_05, z_05)
-                            for w_06 in range(9, 0, -1):
-                                z_07 = func06(w_06, z_06)
-                                print(w_00, w_01, w_02, w_03, w_04, w_05, w_06,
-                                        least)
-                                for w_07 in range(9, 0, -1):
-                                    z_08 = func07(w_07, z_07)
-                                    for w_08 in range(9, 0, -1):
-                                        z_09 = func08(w_08, z_08)
-                                        for w_09 in range(9, 0, -1):
-                                            z_10 = func09(w_09, z_09)
-                                            for w_10 in range(9, 0, -1):
-                                                z_11 = func10(w_10, z_10)
-                                                for w_11 in range(9, 0, -1):
-                                                    z_12 = func11(w_11, z_11)
-                                                    for w_12 in range(9, 0, -1):
-                                                        z_13 = func12(w_12, z_12)
-                                                        for w_13 in range(9, 0, -1):
-                                                            z = func13(w_13, z_13)
-                                                            if z < least:
-                                                                least = z
-                                                            if z == 0:
-                                                                return (w_00,
-                                                                        w_01,
-                                                                        w_02,
-                                                                        w_03,
-                                                                        w_04,
-                                                                        w_05,
-                                                                        w_06,
-                                                                        w_07,
-                                                                        w_08,
-                                                                        w_09,
-                                                                        w_10,
-                                                                        w_11,
-                                                                        w_12,
-                                                                        w_13)
+    funcs = [func00, func01, func02, func03, func04, func05, func06, func07,
+            func08, func09, func10, func11, func12, func13]
+
+    def search(z_out, i, ws):
+        func = funcs[i]
+        for w in range(9, 0, -1):
+            print('i,w: ', i,w)
+            for z_in in range(10**7):
+                if func(w, z_in) == z_out:
+                    print('w,z_in: ', w,z_in)
+                    new_ws = ws + (w,)
+                    if i == 0:
+                        print(new_ws)
+                    else:
+                        search(z_in, i - 1, new_ws)
+
+    return search(0, 13, tuple())
 
 def part2(inputs):
     pass
