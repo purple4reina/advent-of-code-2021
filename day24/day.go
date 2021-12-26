@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
 func equ(a, b int) int {
@@ -328,48 +327,32 @@ func part1() answer {
 
 	var (
 		ws     answer
-		search func(int, int, answer)
+		search func(int, int) bool
 	)
 
 	funcs := [14]func(int, int) int{func00, func01, func02, func03, func04,
 		func05, func06, func07, func08, func09, func10, func11, func12, func13}
-	answerChan := make(chan answer, 5)
-	sem := make(chan struct{}, 16)
 
-	searchGoroutine := func(z_out, i int, ws answer) {
-		defer func() { <-sem }()
-		search(z_out, i, ws)
-	}
-
-	search = func(z_out, i int, ws answer) {
-		fmt.Printf("i: %#v\n", i)
+	search = func(z_out, i int) bool {
 		for w := 9; w > 0; w-- {
 			ws[i] = w
 			for z_in := 0; z_in < maxZ; z_in++ {
 				if funcs[i](w, z_in) == z_out {
 					if i == 0 {
-						answerChan <- ws
-						return
+						return true
 					}
-					select {
-					case sem <- struct{}{}:
-						go searchGoroutine(z_in, i-1, ws)
-					default:
-						search(z_in, i-1, ws)
+					if ok := search(z_in, i-1); ok {
+						return true
 					}
 				}
 			}
 		}
+		return false
 	}
 
-	go search(0, 13, ws)
-	timer := time.NewTimer(60 * time.Second)
-
-	select {
-	case ws = <-answerChan:
-	case <-timer.C:
+	if ok := search(0, 13); ok {
+		fmt.Println("FOUND")
 	}
-
 	return ws
 }
 
